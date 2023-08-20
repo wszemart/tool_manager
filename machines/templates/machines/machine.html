@@ -1,0 +1,32 @@
+{% extends 'machines/index.html' %}
+
+{% block content %}
+  <h1 class="mt-4"></h1>
+  <div class="row">
+        {% for machine in machines %}
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <a class="text-white stretched-link" href="{% url 'machine-detail' machine.pk %}">{{ machine.name }}</a>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="{% url 'machine-detail' machine.pk %}">Tabela narzędzi</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <a class="text-white stretched-link" href="{% url 'machine-create' %}">Dodaj maszynę</a>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="{% url 'machine-create' %}"></a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+  </div>
+{% endblock %}

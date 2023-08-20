@@ -1,0 +1,67 @@
+{% extends 'machines/index.html' %}
+
+{% block content %}
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">{{ machine.name }} </h1>
+
+        {% if object.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'machine-update' object.id %}">Edytuj</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'machine-delete' object.id %}">Usuń</a>
+        {% endif %}
+
+        <div class="row-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Opis
+                    </div>
+                    <div class="card-body">{{ machine.description|linebreaksbr }}</div>
+                </div>
+
+        </div>
+        <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Tabela narzędzi
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Nr narzędzia</th>
+                                    <th>Promień</th>
+                                    <th>Długość całkowita</th>
+                                    <th>Długość poza oprawką</th>
+                                    <th>Typ oprawki</th>
+                                    <th>Typ freza</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tool_assembly in machine.tools.all %}
+                            <tr>
+                                <td>{{ tool_assembly.tool_nr }}</td>
+                                <td>{{ tool_assembly.radius }}</td>
+                                <td>{{ tool_assembly.total_length }}</td>
+                                <td>{{ tool_assembly.outside_holder }}</td>
+                                <td>{{ tool_assembly.holder.get_holder_type_display }}</td>
+                                <td>{{ tool_assembly.tool.get_tool_type_display }}</td>
+                            </tr>
+                        {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
+    </div>
+
+
+    <script>
+    $(document).ready(function() {
+        $('#tool_assembly').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true
+        });
+    });
+    </script>
+{% endblock %}
+
