@@ -1,0 +1,80 @@
+{% extends 'machines/index.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-left font-weight-light my-4">Dodaj nową oprawkę</h3>
+                </div>
+                <div class="content-section">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <fieldset class="form-group">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <strong>{{ form.holder_type.label_tag }}</strong> {{ form.holder_type }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.catalog_nr.label_tag }}</strong> {{ form.catalog_nr }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.inner_diameter.label_tag }}</strong> {{ form.inner_diameter }}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="row mb-3">
+                                    <fieldset class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <strong>{{ form.LH1.label_tag }}</strong> {{ form.LH1 }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.LH2.label_tag }}</strong> {{ form.LH2 }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.LH3.label_tag }}</strong> {{ form.LH3 }}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row mb-3">
+                                    <fieldset class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <strong>{{ form.DH1_A.label_tag }}</strong> {{ form.DH1_A }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.DH2.label_tag }}</strong> {{ form.DH2 }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.DH3.label_tag }}</strong> {{ form.DH3 }}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row mb-3">
+                                    <fieldset class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <strong>{{ form.DH1_B.label_tag }}</strong> {{ form.DH1_B }}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-primary" type="submit">Zapisz</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

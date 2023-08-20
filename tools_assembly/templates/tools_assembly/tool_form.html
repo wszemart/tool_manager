@@ -1,0 +1,76 @@
+{% extends 'machines/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-left font-weight-light my-4">Dodaj nowy frez</h3>
+                </div>
+                <div class="content-section">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <fieldset class="form-group">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                        <strong>{{ form.tool_type.label_tag }}</strong> {{ form.tool_type }}
+                                        </div>
+                                        <div class="col">
+                                        <strong>{{ form.catalog_nr.label_tag }}</strong> {{ form.catalog_nr }}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group">
+                                   <div class="row mb-3">
+                                        <div class="col">
+                                            <strong>{{ form.L1.label_tag }}</strong> {{ form.L1 }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.L2.label_tag }}</strong> {{ form.L2 }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.L3.label_tag }}</strong> {{ form.L3 }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.L4.label_tag }}</strong>  {{ form.L4 }}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group">
+                                   <div class="row mb-3">
+                                        <div class="col">
+                                            <strong>{{ form.D1.label_tag }}</strong> {{ form.D1 }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.D2.label_tag }}</strong> {{ form.D2 }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.D3.label_tag }}</strong> {{ form.D3 }}
+                                        </div>
+                                        <div class="col">
+                                            <strong>{{ form.D4.label_tag }}</strong>  {{ form.D4 }}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group">
+                                   <div class="row mb-3">
+                                        <div class="col">
+                                            <strong>{{ form.R.label_tag }}</strong> {{ form.R }}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-primary" type="submit">Zapisz</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

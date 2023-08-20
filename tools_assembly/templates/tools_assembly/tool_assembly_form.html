@@ -1,0 +1,65 @@
+{% extends 'machines/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-left font-weight-light my-4">Dodaj nowe narzędzie</h3>
+                </div>
+                <div class="content-section">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                    <fieldset class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <strong>{{ form.tool_nr.label_tag }}</strong> {{ form.tool_nr }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.radius.label_tag }}</strong> {{ form.radius }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.total_length.label_tag }}</strong> {{ form.total_length }}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                            <div class="row mb-3">
+                                    <fieldset class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <strong>{{ form.outside_holder.label_tag }}</strong> {{ form.outside_holder }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.machine.label_tag }}</strong> {{ form.machine }}
+                                            </div>
+                                            <div class="col">
+                                                <strong>{{ form.holder.label_tag }}</strong> {{ form.holder }}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            <div class="row mb-3">
+                                    <fieldset class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <strong>{{ form.tool.label_tag }}</strong> {{ form.tool }}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-primary" type="submit">Zapisz</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

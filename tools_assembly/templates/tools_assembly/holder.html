@@ -1,0 +1,64 @@
+{% extends 'machines/index.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg">
+            <div class="text-end mb-3">
+                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'holder-create' %}">Dodaj oprawkę</a>
+            </div>
+            <div class="card shadow-lg border-0 rounded-lg mt-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Tabela oprawek
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Typ oprawki</th>
+                                    <th>Nr katalogowy</th>
+                                    <th>Średnica wewnętrzna</th>
+                                    <th>LH1</th>
+                                    <th>DH1 A</th>
+                                    <th>DH1 B</th>
+                                    <th>LH2</th>
+                                    <th>DH2</th>
+                                    <th>LH3</th>
+                                    <th>DH3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for holder in object_list %}
+                                <tr>
+                                    <td><a href="{% url 'holder-detail' holder.pk %}">{{ holder.get_holder_type_display }}</a></td>
+                                    <td>{{ holder.catalog_nr }}</td>
+                                    <td>{{ holder.inner_diameter }}</td>
+                                    <td>{{ holder.LH1 }}</td>
+                                    <td>{{ holder.DH1_A }}</td>
+                                    <td>{{ holder.DH1_B }}</td>
+                                    <td>{{ holder.LH2 }}</td>
+                                    <td>{{ holder.DH2 }}</td>
+                                    <td>{{ holder.LH3 }}</td>
+                                    <td>{{ holder.DH3 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#holderTable').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": true
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'machines/index.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-left font-weight-light my-4">Dane freza: {{ object.get_tool_type_display }} o średnicy {{ object.D1 }} mm</h3>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tool-update' object.id %}">Edytuj</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tool-delete' object.id %}">Usuń</a>
+                </div>
+                <div class="content-section">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>Typ freza:</strong> {{ object.get_tool_type_display }}
+                            </div>
+                            <div class="col">
+                                <strong>Nr katalogowy:</strong> {{ object.catalog_nr }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>L1:</strong> {{ object.L1 }}
+                            </div>
+                            <div class="col">
+                                <strong>L2:</strong> {{ object.L2 }}
+                            </div>
+                            <div class="col">
+                                <strong>L3:</strong> {{ object.L3 }}
+                            </div>
+                            <div class="col">
+                                <strong>L4:</strong> {{ object.L4 }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>D1:</strong> {{ object.D1 }}
+                            </div>
+                            <div class="col">
+                                <strong>D2:</strong> {{ object.D2 }}
+                            </div>
+                            <div class="col">
+                                <strong>D3:</strong> {{ object.D3 }}
+                            </div>
+                            <div class="col">
+                                <strong>D4:</strong> {{ object.D4 }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>R:</strong> {{ object.R }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

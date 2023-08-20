@@ -1,0 +1,58 @@
+{% extends 'machines/index.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg">
+            <div class="text-end mb-3">
+                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-assembly-create' %}">Dodaj narzędzie</a>
+            </div>
+            <div class="card shadow-lg border-0 rounded-lg mt-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Tabela narzędzi
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Nr narzędzia</th>
+                                    <th>Promień</th>
+                                    <th>Długość całkowita</th>
+                                    <th>Długość poza oprawką</th>
+                                    <th>Maszyna</th>
+                                    <th>Typ oprawki</th>
+                                    <th>Typ freza</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tool_assembly in object_list %}
+                                <tr>
+                                    <td><a href="{% url 'tool-assembly-detail' tool_assembly.pk %}">{{ tool_assembly.tool_nr }}</td>
+                                    <td>{{ tool_assembly.radius }}</td>
+                                    <td>{{ tool_assembly.total_length }}</td>
+                                    <td>{{ tool_assembly.outside_holder }}</td>
+                                    <td>{{ tool_assembly.machine.name }}</td>
+                                    <td>{{ tool_assembly.holder.get_holder_type_display }}</td>
+                                    <td>{{ tool_assembly.tool.get_tool_type_display }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#tool_assembly').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": true
+    });
+});
+</script>
+{% endblock %}
