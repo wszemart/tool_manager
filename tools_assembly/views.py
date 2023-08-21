@@ -9,24 +9,78 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
-class HolderListView(ListView):
+class BreadcrumbMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['breadcrumbs'] = self.get_breadcrumbs()
+        return context
+
+    def get_breadcrumbs(self):
+        breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')}]
+
+        if isinstance(self, HolderListView):
+            breadcrumbs.append({'title': 'Lista oprawek', 'url': reverse('holder')})
+
+        elif isinstance(self, HolderDetailView) or isinstance(self, HolderUpdateView):
+            holder = self.get_object()
+            breadcrumbs.append({'title': 'Lista oprawek', 'url': reverse('holder')})
+            breadcrumbs.append(
+                {'title': holder.get_holder_type_display, 'url': reverse('holder-detail', kwargs={'pk': holder.pk})})
+            if isinstance(self, HolderUpdateView):
+                breadcrumbs.append({'title': 'Aktualizuj', 'url': reverse('holder-update', kwargs={'pk': holder.pk})})
+
+        elif isinstance(self, HolderCreateView):
+            breadcrumbs.append({'title': 'Lista oprawek', 'url': reverse('holder')})
+            breadcrumbs.append({'title': 'Utwórz nową oprawkę', 'url': reverse('holder-create')})
+
+        elif isinstance(self, ToolListView):
+            breadcrumbs.append({'title': 'Lista frezów', 'url': reverse('tool')})
+
+        elif isinstance(self, ToolDetailView) or isinstance(self, ToolUpdateView):
+            tool = self.get_object()
+            breadcrumbs.append({'title': 'Lista frezów', 'url': reverse('tool')})
+            breadcrumbs.append({'title': tool.get_tool_type_display, 'url': reverse('tool-detail', kwargs={'pk': tool.pk})})
+            if isinstance(self, ToolUpdateView):
+                breadcrumbs.append({'title': 'Aktualizuj', 'url': reverse('tool-update', kwargs={'pk': tool.pk})})
+
+        elif isinstance(self, ToolCreateView):
+            breadcrumbs.append({'title': 'Lista frezów', 'url': reverse('tool')})
+            breadcrumbs.append({'title': 'Utwórz nowy frez', 'url': reverse('tool-create')})
+
+        elif isinstance(self, ToolAssemblyListView):
+            breadcrumbs.append({'title': 'Lista narzędzi', 'url': reverse('tool-assembly')})
+
+        elif isinstance(self, ToolAssemblyDetailView) or isinstance(self, ToolAssemblyUpdateView):
+            tool_assembly = self.get_object()
+            breadcrumbs.append({'title': 'Lista narzędzi', 'url': reverse('tool-assembly')})
+            breadcrumbs.append({'title': f'T{tool_assembly.tool_nr} R{tool_assembly.radius} {tool_assembly.tool.get_tool_type_display()}', 'url': reverse('tool-assembly-detail', kwargs={'pk': tool_assembly.pk})})
+            if isinstance(self, ToolAssemblyUpdateView):
+                breadcrumbs.append({'title': 'Aktualizuj', 'url': reverse('tool-assembly-update', kwargs={'pk': tool_assembly.pk})})
+        elif isinstance(self, ToolAssemblyCreateView):
+            breadcrumbs.append({'title': 'Lista narzędzi', 'url': reverse('tool-assembly')})
+            breadcrumbs.append({'title': 'Utwórz nowe narzędzie', 'url': reverse('tool-assembly-create')})
+
+        return breadcrumbs
+
+
+class HolderListView(BreadcrumbMixin, ListView):
     model = Holder
     template_name = 'tools_assembly/holder.html'
 
 
-class HolderDetailView(DetailView):
+class HolderDetailView(BreadcrumbMixin, DetailView):
     model = Holder
     template_name = 'tools_assembly/holder_detail.html'
 
 
-class HolderCreateView(LoginRequiredMixin, CreateView):
+class HolderCreateView(BreadcrumbMixin, LoginRequiredMixin, CreateView):
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
     form_class = HolderForm
     success_url = '/'
 
 
-class HolderUpdateView(LoginRequiredMixin, UpdateView):
+class HolderUpdateView(BreadcrumbMixin, LoginRequiredMixin, UpdateView):
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
     form_class = HolderForm
@@ -49,24 +103,24 @@ class HolderDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/'
 
 
-class ToolListView(ListView):
+class ToolListView(BreadcrumbMixin, ListView):
     model = Tool
     template_name = 'tools_assembly/tool.html'
 
 
-class ToolDetailView(DetailView):
+class ToolDetailView(BreadcrumbMixin, DetailView):
     model = Tool
     template_name = 'tools_assembly/tool_detail.html'
 
 
-class ToolCreateView(LoginRequiredMixin, CreateView):
+class ToolCreateView(BreadcrumbMixin, LoginRequiredMixin, CreateView):
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
     form_class = ToolForm
     success_url = '/'
 
 
-class ToolUpdateView(LoginRequiredMixin, UpdateView):
+class ToolUpdateView(BreadcrumbMixin, LoginRequiredMixin, UpdateView):
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
     form_class = ToolForm
@@ -89,19 +143,19 @@ class ToolDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/'
 
 
-class ToolAssemblyCreateView(LoginRequiredMixin, CreateView):
+class ToolAssemblyCreateView(BreadcrumbMixin, LoginRequiredMixin, CreateView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
     success_url = '/'
 
 
-class ToolAssemblyListView(ListView):
+class ToolAssemblyListView(BreadcrumbMixin, ListView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly.html'
 
 
-class ToolAssemblyDetailView(DetailView):
+class ToolAssemblyDetailView(BreadcrumbMixin, DetailView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_detail.html'
 
@@ -112,7 +166,7 @@ class ToolAssemblyDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/'
 
 
-class ToolAssemblyUpdateView(LoginRequiredMixin, UpdateView):
+class ToolAssemblyUpdateView(BreadcrumbMixin, LoginRequiredMixin, UpdateView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
