@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from .forms import CustomUserCreationForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 def register(request):
@@ -43,4 +44,14 @@ def profile(request):
         user_form = UserUpdateForm(instance=request.user)
         # profile_form = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request, 'users/profile.html', {'user_form': user_form})
+    breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')}]
+    breadcrumbs.append({'title': 'Profil użytkownika', 'url': reverse('profile')})
+
+    context = {
+        'user_form': user_form,
+        'breadcrumbs': breadcrumbs,
+    }
+
+    return render(request, 'users/profile.html', context)
+
+    # return render(request, 'users/profile.html', {'user_form': user_form})
