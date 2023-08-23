@@ -1,6 +1,8 @@
 from django.db import models
 from machines.models import Machine
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 class Holder(models.Model):
@@ -59,6 +61,8 @@ class Tool(models.Model):
         ('drill', 'WIERTŁO'),
     ]
 
+    tool_type_dict = dict(tool_type_choices)
+
     tool_type = models.CharField(max_length=100, choices=tool_type_choices)
     catalog_nr = models.CharField(max_length=100)
     R = models.PositiveIntegerField(blank=True, null=True)
@@ -83,6 +87,9 @@ class Tool(models.Model):
         self.clean()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.tool_type_dict.get(self.tool_type, 'Unknown tool type')
+
 
 class ToolAssembly(models.Model):
     tool_nr = models.IntegerField()
@@ -93,3 +100,12 @@ class ToolAssembly(models.Model):
     holder = models.ForeignKey(Holder, on_delete=models.CASCADE)
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
 
+    def get_comments(self):
+        return self.comments.order_by('-date_posted')
+
+
+class UserComment(models.Model):
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
+    toolassembly = models.ForeignKey(ToolAssembly, on_delete=models.CASCADE, related_name='comments')

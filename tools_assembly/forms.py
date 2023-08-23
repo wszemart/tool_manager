@@ -1,5 +1,5 @@
 from django import forms
-from .models import Holder, Tool, ToolAssembly
+from .models import Holder, Tool, ToolAssembly, UserComment
 
 
 class HolderForm(forms.ModelForm):
@@ -35,4 +35,17 @@ class ToolAssemblyForm(forms.ModelForm):
             'machine': 'Maszyna',
             'holder': 'Oprawka',
             'tool': 'Frez',
+        }
+
+
+class UserCommentForm(forms.ModelForm):
+    class Meta:
+        model = UserComment
+        fields = ['content']
+        labels = {
+            'content': 'Komentarz',
+        }
+
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 2}),
         }

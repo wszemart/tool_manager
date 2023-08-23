@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import HolderForm, ToolForm, ToolAssemblyForm
-from .models import Holder, Tool, ToolAssembly
+from .forms import HolderForm, ToolForm, ToolAssemblyForm, UserCommentForm
+from .models import Holder, Tool, ToolAssembly, UserComment
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -159,6 +159,11 @@ class ToolAssemblyDetailView(BreadcrumbMixin, DetailView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = UserCommentForm()
+        return context
+
 
 class ToolAssemblyDeleteView(LoginRequiredMixin, DeleteView):
     model = ToolAssembly
@@ -173,3 +178,23 @@ class ToolAssemblyUpdateView(BreadcrumbMixin, LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('tool-assembly-detail', kwargs={'pk': self.object.pk})
+
+
+class UserCommentListView(ListView):
+    model = UserComment
+    context_object_name = 'comments'
+    ordering = ['-date_posted']
+    paginate_by = 10
+
+
+class ToolAssemblyAddCommentView(View):
+    def post(self, request, pk):
+        tool_assembly = get_object_or_404(ToolAssembly, pk=pk)
+        comment_form = UserCommentForm(request.POST)
+        if comment_form.is_valid():
+            print(comment_form.errors)
+            new_comment = comment_form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.toolassembly = tool_assembly
+            new_comment.save()
+        return redirect('tool-assembly-detail', pk=pk)
