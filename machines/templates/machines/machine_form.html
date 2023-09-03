@@ -1,17 +1,7 @@
 {% extends 'machines/index.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<style>
-    .breadcrumbs {
-        margin: 8px;
-    }
-</style>
-<div class="breadcrumbs container-fluid ">
-    {% for breadcrumb in breadcrumbs %}
-    <a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a>
-    {% if not forloop.last %}&gt;{% endif %}
-    {% endfor %}
-</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg">

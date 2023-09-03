@@ -31,21 +31,21 @@ def logout(request):
 
 @login_required
 def profile(request):
+    user_form = UserUpdateForm(instance=request.user)
+
     if request.method == "POST":
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        # profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if request.user == request.user.profile.user:
+            user_form = UserUpdateForm(request.POST, instance=request.user)
 
-        if user_form.is_valid():
-            user_form.save()
-            # profile_form.save()
-            messages.success(request, "Your profile's been updated")
-            return redirect('profile')
-    else:
-        user_form = UserUpdateForm(instance=request.user)
-        # profile_form = ProfileUpdateForm(instance=request.user.profile)
+            if user_form.is_valid():
+                user_form.save()
+                messages.success(request, "Your profile's been updated")
+                return redirect('profile')
+            else:
+                messages.error(request, "You are not authorized to edit this profile.")
 
-    breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')}]
-    breadcrumbs.append({'title': 'Profil użytkownika', 'url': reverse('profile')})
+    breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')},
+                   {'title': 'Profil użytkownika', 'url': reverse('profile')}]
 
     context = {
         'user_form': user_form,
@@ -54,4 +54,3 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
 
-    # return render(request, 'users/profile.html', {'user_form': user_form})

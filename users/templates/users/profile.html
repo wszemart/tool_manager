@@ -10,6 +10,15 @@
         <div class="card-header"><h5 class="text-left font-weight-light my-4"></h5></div>
     <div class="content-section">
         <div class="card-body">
+                                {% if messages %}
+                        <div class="messages">
+                            {% for message in messages %}
+                                <div class="alert alert-info" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">

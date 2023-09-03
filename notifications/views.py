@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from .models import Notification, UserNotification
 from django.views.generic.list import ListView
+from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 
-class UnreadNotificationListView(ListView):
-    model = UserNotification
+class UnreadNotificationListView(TemplateView):
+    # model = UserNotification
     template_name = 'notifications/unread_notification.html'
     context_object_name = 'user_notifications'
     paginate_by = 5
@@ -15,11 +16,11 @@ class UnreadNotificationListView(ListView):
     #     user = self.request.user
     #     return UserNotification.objects.exclude(user=user).filter(is_read=False).select_related('notification__user_comment').order_by('-notification__created_at')
 
-    def get_queryset(self):
-        user = self.request.user
-        return UserNotification.objects.filter(is_read=False).select_related(
-            'notification__user_comment').order_by('-notification__created_at').exclude(user=user)
-
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return UserNotification.objects.filter(is_read=False).select_related(
+    #         'notification__user_comment').order_by('-notification__created_at').exclude(user=user)
+#
 
 @login_required
 def mark_notification_as_read(request, pk):

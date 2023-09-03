@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('machines.urls')),
     path('', include('tools_assembly.urls')),
+    path('', include('notifications.urls')),
     path('register/', register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', logout, name='logout'),

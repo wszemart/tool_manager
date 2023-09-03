@@ -1,23 +1,14 @@
 {% extends 'machines/index.html' %}
 {% load static %}
 {% block content %}
-    <style>
-        .breadcrumbs {
-            margin: 8px;
-        }
-    </style>
-    <div class="breadcrumbs container-fluid ">
-        {% for in breadcrumbs %}
-            <a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a>
-        {% if not forloop.last %}&gt;{% endif %}
-        {% endfor %}
-    </div>
     <div class="container-fluid px-4">
         <h4 class="mt-4 text-end">{{ machine.name }}
-        {% if object.author == user %}
+
+            {% if object.author == user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'machine-update' object.id %}">Edytuj</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'machine-delete' object.id %}">Usuń</a>
-        {% endif %}
+            {% endif %}
+
         </h4>
 
         <div class="row-md-6">
@@ -38,12 +29,10 @@
                     margin: 10px;
                 }
             </style>
-            <a href="{% url 'generate-csv' %}">
-                <i class="fa-solid fa-file-csv custom-icon"></i>
-            </a>
-            <a href="{% url 'generate-csv' %}">
-                <i class="fa-solid fa-file-pdf custom-icon"></i>
-            </a>
+            <a href="{% url 'generate-csv' %}" class="custom-icon">
+                <i class="fa-solid fa-file-csv"></i></a>
+            <a href="{% url 'generate-pdf' %}" class="custom-icon">
+                <i class="fa-solid fa-file-pdf"></i></a>
         </div>
         <div class="card mb-4">
                     <div class="card-header">
@@ -65,7 +54,7 @@
                             <tbody>
                                 {% for tool_assembly in machine.tools.all %}
                             <tr>
-                                <td>{{ tool_assembly.tool_nr }}</td>
+                                <td><a href="{% url 'tool-assembly-detail' tool_assembly.pk %}"/>{{ tool_assembly.tool_nr }}</td>
                                 <td>{{ tool_assembly.radius }}</td>
                                 <td>{{ tool_assembly.total_length }}</td>
                                 <td>{{ tool_assembly.outside_holder }}</td>

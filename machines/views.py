@@ -1,3 +1,6 @@
+import datetime
+from tempfile import NamedTemporaryFile
+import os
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -5,14 +8,20 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import MachineForm
 from .models import Machine
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 import pandas as pd
 from django.http import HttpResponse
-# from weasyprint import HTML
+from weasyprint import HTML
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.urls import reverse
 # login_required, LoginRequiredMixin (class based view)
+from django.core.files.base import ContentFile
+import logging
+
+
+logger = logging.getLogger(__name__)
+logger.warning('this is an warning message')
 
 
 class BreadcrumbMixin:
@@ -39,7 +48,7 @@ class BreadcrumbMixin:
 
 @login_required
 def home(request):
-    print("Home view accessed.")
+    logger.info("Home view accessed.")
     return render(request, 'machines/machine.html', {'title': 'Home'})
 
 
@@ -57,10 +66,10 @@ class MachineCreateView(LoginRequiredMixin, BreadcrumbMixin, CreateView):
     model = Machine
     template_name = 'machines/machine_form.html'
     form_class = MachineForm
-    # fields = ['name', 'description']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        logger.info(f"Machine {form.instance.name} created by {form.instance.author}.")
         return super().form_valid(form)
 
 
@@ -71,6 +80,7 @@ class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, UserPassesTestMixin
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        logger.info(f"Machine {form.instance.name} updated by {form.instance.author}.")
         return super().form_valid(form)
 
     def test_func(self):
@@ -106,33 +116,50 @@ def generate_csv(request):
             })
 
     df = pd.DataFrame(data)
-    response = HttpResponse(content_type='text/csv')
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="data-csv.csv"'
-    df.to_csv(response, index=False)
+    csv_to_data = df.to_csv(None, index=False, encoding='utf-8')
+
+    response.write(csv_to_data)
+
+    logger.info(f"CSV generation completed by user: {request.user}")
+
     return response
 
 
-# def generate_pdf(request):
-#     machines = Machine.objects.all()
-#     data = []
-#     for machine in machines:
-#         tools = machine.tools.all()
-#         for tool in tools:
-#             data.append({
-#                 'Nr narzędzia': tool.tool_nr,
-#                 'Promień': tool.radius,
-#                 'Długość całkowita': tool.total_length,
-#                 'Długość poza oprawką': tool.outside_holder,
-#                 'Maszyna': machine.name,
-#                 'Typ oprawki': tool.holder.get_holder_type_display(),
-#                 'Typ freza': tool.tool.get_tool_type_display(),
-#             })
-#
-#     context = {'data': data}
-#     html_string = render_to_string('machine_detail.html', context)
-#     html = HTML(string=html_string)
-#     pdf_file = html.write_pdf()
-#     response = HttpResponse(pdf_file, content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="data-pdf.pdf"'
-#     return response
+def generic_pdf(request):
+    os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+
+    machines = Machine.objects.all()
+    data = []
+
+    for machine in machines:
+        tools = machine.tools.all()
+        for tool in tools:
+            data.append({
+                'Nr narzędzia': tool.tool_nr,
+                'Promień': tool.radius,
+                'Długość całkowita': tool.total_length,
+                'Długość poza oprawką': tool.outside_holder,
+                'Maszyna': machine.name,
+                'Typ oprawki': tool.holder.get_holder_type_display(),
+                'Typ freza': tool.tool.get_tool_type_display(),
+            })
+
+    content = render_to_string("machines/root.html", {"machines": data})
+
+    with NamedTemporaryFile(delete=False, suffix='.pdf') as file:
+        HTML(string=content).write_pdf(file.name)
+
+        logger.info(f"PDF generation completed by user: {request.user}")
+
+        file.seek(0)
+        pdf_content = file.read()
+
+    response = HttpResponse(pdf_content, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="generated.pdf"'
+
+    os.remove(file.name)
+
+    return response
 
