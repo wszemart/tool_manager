@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from .forms import MachineForm
 from .models import Machine
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -62,7 +62,8 @@ class MachineDetailView(BreadcrumbMixin, DetailView):
     template_name = 'machines/machine_detail.html'
 
 
-class MachineCreateView(LoginRequiredMixin, BreadcrumbMixin, CreateView):
+class MachineCreateView(LoginRequiredMixin, BreadcrumbMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'machines.add_machine'
     model = Machine
     template_name = 'machines/machine_form.html'
     form_class = MachineForm
@@ -73,7 +74,8 @@ class MachineCreateView(LoginRequiredMixin, BreadcrumbMixin, CreateView):
         return super().form_valid(form)
 
 
-class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'machines.change_machine'
     model = Machine
     template_name = 'machines/machine_form.html'
     fields = ['name', 'description']
@@ -88,7 +90,8 @@ class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, UserPassesTestMixin
         return self.request.user == machine.author
 
 
-class MachineDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class MachineDeleteView(LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'machines.delete_machine'
     model = Machine
     template_name = 'machines/delete_confirm.html'
     success_url = '/'

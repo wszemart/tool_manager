@@ -38,6 +38,8 @@
                 <ul>
                     {% if user_notifications.count > 0 %}
                         <span class="badge bg-danger">{{ user_notifications.count }}</span>
+                    {% else %}
+                        <span class="badge bg-danger">0</span>
                     {% endif %}
                 </ul>
                 <li class="nav-item dropdown">
@@ -89,7 +91,11 @@
                                     {% for machine in machines %}
                                     <a class="nav-link" href="{% url 'machine-detail' machine.pk %}">{{ machine.name }}</a>
                                     {% endfor %}
+
+                                    {% if perms.machines.add_machine %}
                                     <a class="nav-link" href="{% url 'machine-create' %}">Dodaj maszynę</a>
+                                    {% endif %}
+
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -106,7 +112,9 @@
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link" href="{% url 'tool' %}">Tabela frezów</a>
+                                            {% if perms.tools_assembly.add_tool %}
                                             <a class="nav-link" href="{% url 'tool-create' %}">Dodaj frez</a>
+                                            {% endif %}
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -116,7 +124,9 @@
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link" href="{% url 'holder' %}">Tabela oprawek</a>
+                                            {% if perms.tools_assembly.add_holder %}
                                             <a class="nav-link" href="{% url 'holder-create' %}">Dodaj oprawkę</a>
+                                            {% endif %}
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseTool" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -126,7 +136,9 @@
                                     <div class="collapse" id="pagesCollapseTool" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link" href="{% url 'tool-assembly' %}">Tabela narzędzi</a>
+                                            {% if perms.tools_assembly.add_toolassembly %}
                                             <a class="nav-link" href="{% url 'tool-assembly-create' %}">Dodaj narzędzie</a>
+                                            {% endif %}
                                         </nav>
                                     </div>
                                 </nav>
