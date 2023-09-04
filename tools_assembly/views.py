@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView, UpdateView, DeleteView, View
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.urls import reverse
 from django.contrib.auth.models import User
 from notifications.models import UserNotification, Notification
@@ -23,7 +23,6 @@ from .mixins import BreadcrumbMixin
 # # BreadcrumbMixin -> mixins.py
 
 
-
 class HolderListView(ListView, BreadcrumbMixin):
     model = Holder
     template_name = 'tools_assembly/holder.html'
@@ -34,14 +33,16 @@ class HolderDetailView(DetailView, BreadcrumbMixin):
     template_name = 'tools_assembly/holder_detail.html'
 
 
-class HolderCreateView(LoginRequiredMixin, CreateView, BreadcrumbMixin):
+class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, CreateView):
+    permission_required = 'tools_assembly.add_holder'
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
     form_class = HolderForm
     success_url = '/'
 
 
-class HolderUpdateView(LoginRequiredMixin, UpdateView, BreadcrumbMixin):
+class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, UpdateView):
+    permission_required = 'tools_assembly.change_holder'
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
     form_class = HolderForm
@@ -58,7 +59,8 @@ class HolderUpdateView(LoginRequiredMixin, UpdateView, BreadcrumbMixin):
     #     return self.request.user == holder.author
 
 
-class HolderDeleteView(LoginRequiredMixin, DeleteView, BreadcrumbMixin):
+class HolderDeleteView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, DeleteView):
+    permission_required = 'tools_assembly.delete_holder'
     model = Holder
     template_name = 'tools_assembly/delete_confirm.html'
     success_url = '/'
@@ -74,14 +76,16 @@ class ToolDetailView(DetailView, BreadcrumbMixin):
     template_name = 'tools_assembly/tool_detail.html'
 
 
-class ToolCreateView(LoginRequiredMixin, CreateView, BreadcrumbMixin):
+class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, CreateView):
+    permission_required = 'tools_assembly.add_tool'
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
     form_class = ToolForm
     success_url = '/'
 
 
-class ToolUpdateView(LoginRequiredMixin, UpdateView, BreadcrumbMixin):
+class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, UpdateView):
+    permission_required = 'tools_assembly.change_tool'
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
     form_class = ToolForm
@@ -98,13 +102,15 @@ class ToolUpdateView(LoginRequiredMixin, UpdateView, BreadcrumbMixin):
     #     return self.request.user == holder.author
 
 
-class ToolDeleteView(LoginRequiredMixin, DeleteView, BreadcrumbMixin):
+class ToolDeleteView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, DeleteView):
+    permission_required = 'tools_assembly.delete_tool'
     model = Tool
     template_name = 'tools_assembly/tool_delete_confirm.html'
     success_url = '/'
 
 
-class ToolAssemblyCreateView(LoginRequiredMixin, CreateView, BreadcrumbMixin):
+class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, CreateView):
+    permission_required = 'tools_assembly.add_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
@@ -126,13 +132,15 @@ class ToolAssemblyDetailView(DetailView, BreadcrumbMixin):
         return context
 
 
-class ToolAssemblyDeleteView(LoginRequiredMixin, DeleteView, BreadcrumbMixin):
+class ToolAssemblyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, DeleteView):
+    permission_required = 'tools_assembly.delete_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_delete_confirm.html'
     success_url = '/'
 
 
-class ToolAssemblyUpdateView(LoginRequiredMixin, UpdateView, BreadcrumbMixin):
+class ToolAssemblyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, UpdateView):
+    permission_required = 'tools_assembly.change_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
