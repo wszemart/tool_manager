@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PDF Report</title>
-</head>
-<body>
-    <h1>PDF Report</h1>
-    <div class="card-body">
+{% load static %}
+{% block content %}
+    <div class="container-fluid px-4">
+        <h4 class="mt-4 text-end">{{ machine.name }</h4>
+
+
+        <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Tabela narzędzi
+                    </div>
+                    <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
@@ -31,6 +35,18 @@
                             </tbody>
                         </table>
                     </div>
-</body>
-</html>
+        </div>
+    </div>
+
+
+    <script>
+    $(document).ready(function() {
+        $('#tool_assembly').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true
+        });
+    });
+    </script>
+{% endblock %}
 

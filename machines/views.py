@@ -21,7 +21,6 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-logger.warning('this is an warning message')
 
 
 class BreadcrumbMixin:
@@ -48,7 +47,8 @@ class BreadcrumbMixin:
 
 @login_required
 def home(request):
-    logger.info("Home view accessed.")
+    user = request.user
+    logger.info(f"User {user} home view accessed.")
     return render(request, 'machines/machine.html', {'title': 'Home'})
 
 
@@ -56,10 +56,20 @@ class MachineListView(BreadcrumbMixin, ListView):
     model = Machine
     template_name = 'machines/machines_list.html'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Machine List View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
+
 
 class MachineDetailView(BreadcrumbMixin, DetailView):
     model = Machine
     template_name = 'machines/machine_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Machine Detail View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
 
 class MachineCreateView(LoginRequiredMixin, BreadcrumbMixin, PermissionRequiredMixin, CreateView):
@@ -99,6 +109,12 @@ class MachineDeleteView(LoginRequiredMixin, UserPassesTestMixin, PermissionRequi
     def test_func(self):
         machine = self.get_object()
         return self.request.user == machine.author
+
+    def post(self, request, *args, **kwargs):
+        machine = self.get_object()
+        user = request.user
+        logger.info(f'Machine {machine.name} deleted by user {user}')
+        return super().post(request, *args, **kwargs)
 
 
 def generate_csv(request):
@@ -163,6 +179,8 @@ def generic_pdf(request):
     response['Content-Disposition'] = 'inline; filename="generated.pdf"'
 
     os.remove(file.name)
+
+    logger.info(f"PDF generation completed by user: {request.user}")
 
     return response
 
