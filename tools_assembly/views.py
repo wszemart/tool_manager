@@ -7,12 +7,14 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from notifications.models import UserNotification, Notification
 
-
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from .forms import HolderForm, ToolForm, ToolAssemblyForm, UserCommentForm
 from .models import Holder, Tool, ToolAssembly, UserComment
-from .mixins import BreadcrumbMixin
+# from .mixins import BreadcrumbMixin
+import logging
+
+logger = logging.getLogger(__name__)
 
 # BREADCRUMB_CONFIG = {
 #     HolderListView: [
@@ -23,25 +25,40 @@ from .mixins import BreadcrumbMixin
 # # BreadcrumbMixin -> mixins.py
 
 
-class HolderListView(ListView, BreadcrumbMixin):
+class HolderListView(ListView):
     model = Holder
     template_name = 'tools_assembly/holder.html'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Holder List View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
-class HolderDetailView(DetailView, BreadcrumbMixin):
+
+class HolderDetailView(DetailView):
     model = Holder
     template_name = 'tools_assembly/holder_detail.html'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Holder Detail View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
-class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, CreateView):
+
+class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'tools_assembly.add_holder'
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
     form_class = HolderForm
     success_url = '/'
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        logger.info(f"Holder {form.instance.holder_type} created by {form.instance.author}.")
+        return super().form_valid(form)
 
-class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, UpdateView):
+
+class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'tools_assembly.change_holder'
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
@@ -50,41 +67,63 @@ class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMi
     def get_success_url(self):
         return reverse('holder-detail', kwargs={'pk': self.object.pk})
 
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        logger.info(f"Holder {form.instance.holder_type} updated by {form.instance.author}.")
+        return super().form_valid(form)
 
     # def test_func(self):
     #     holder = self.get_object()
     #     return self.request.user == holder.author
 
 
-class HolderDeleteView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, DeleteView):
+class HolderDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'tools_assembly.delete_holder'
     model = Holder
     template_name = 'tools_assembly/delete_confirm.html'
     success_url = '/'
 
+    def post(self, request, *args, **kwargs):
+        holder = self.get_object()
+        user = request.user
+        logger.info(f'Holder {holder.holder_type} deleted by user {user}')
+        return super().post(request, *args, **kwargs)
 
-class ToolListView(ListView, BreadcrumbMixin):
+
+class ToolListView(ListView):
     model = Tool
     template_name = 'tools_assembly/tool.html'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Tool List View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
-class ToolDetailView(DetailView, BreadcrumbMixin):
+
+class ToolDetailView(DetailView):
     model = Tool
     template_name = 'tools_assembly/tool_detail.html'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Tool Detail View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
-class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, CreateView):
+
+class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'tools_assembly.add_tool'
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
     form_class = ToolForm
     success_url = '/'
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        logger.info(f"Tool {form.instance.tool_type} created by user {form.instance.author}.")
+        return super().form_valid(form)
 
-class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, UpdateView):
+
+class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'tools_assembly.change_tool'
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
@@ -93,36 +132,53 @@ class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixi
     def get_success_url(self):
         return reverse('tool-detail', kwargs={'pk': self.object.pk})
 
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        logger.info(f"Tool {form.instance.tool_type} updated by {form.instance.author}.")
+        return super().form_valid(form)
 
     # def test_func(self):
     #     holder = self.get_object()
     #     return self.request.user == holder.author
 
 
-class ToolDeleteView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, DeleteView):
+class ToolDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'tools_assembly.delete_tool'
     model = Tool
     template_name = 'tools_assembly/tool_delete_confirm.html'
     success_url = '/'
 
+    def post(self, request, *args, **kwargs):
+        tool = self.get_object()
+        user = request.user
+        logger.info(f'Tool {tool.tool_type} deleted by user {user}')
+        return super().post(request, *args, **kwargs)
 
-class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, CreateView):
+
+class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'tools_assembly.add_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
     success_url = '/'
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        logger.info(f"Tool assembly nr: {form.instance.tool_nr} created by user {form.instance.author}.")
+        return super().form_valid(form)
 
-class ToolAssemblyListView(ListView, BreadcrumbMixin):
+
+class ToolAssemblyListView(ListView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly.html'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        logger.info(f'Tool assembly List View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
-class ToolAssemblyDetailView(DetailView, BreadcrumbMixin):
+
+class ToolAssemblyDetailView(DetailView):
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_detail.html'
 
@@ -131,15 +187,27 @@ class ToolAssemblyDetailView(DetailView, BreadcrumbMixin):
         context['comment_form'] = UserCommentForm()
         return context
 
+    def get(self, request, *args, **kwargs):
+        tool_assembly = self.get_object()
+        user = request.user
+        logger.info(f'Tool assembly nr: {tool_assembly.tool_nr} Detail View accessed by user {user}')
+        return super().get(request, *args, **kwargs)
 
-class ToolAssemblyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, DeleteView):
+
+class ToolAssemblyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'tools_assembly.delete_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_delete_confirm.html'
     success_url = '/'
 
+    def post(self, request, *args, **kwargs):
+        tool_assembly = self.get_object()
+        user = request.user
+        logger.info(f'Tool assembly nr: {tool_assembly.tool_nr} deleted by user {user}')
+        return super().post(request, *args, **kwargs)
 
-class ToolAssemblyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, BreadcrumbMixin, UpdateView):
+
+class ToolAssemblyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'tools_assembly.change_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
@@ -147,6 +215,11 @@ class ToolAssemblyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Breadc
 
     def get_success_url(self):
         return reverse('tool-assembly-detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        logger.info(f"Tool assembly nr: {form.instance.tool_nr} updated by {form.instance.author}.")
+        return super().form_valid(form)
 
 
 class UserCommentListView(ListView):
@@ -171,5 +244,6 @@ class ToolAssemblyAddCommentView(View):
             print('after comment and notification')
 
         print('view from tool asembly')
+        logger.info(f"New comment add to tool assembly nr: {tool_assembly.tool_nr} by {request.user}.")
 
         return redirect('tool-assembly-detail', pk=pk)

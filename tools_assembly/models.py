@@ -34,6 +34,7 @@ class Holder(models.Model):
     DH2 = models.FloatField(blank=True, null=True)
     LH3 = models.FloatField(blank=True, null=True)
     DH3 = models.FloatField(blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
 
     def clean(self):
         super().clean()
@@ -74,6 +75,7 @@ class Tool(models.Model):
     D3 = models.FloatField(blank=True, null=True)
     L4 = models.FloatField(blank=True, null=True)
     D4 = models.FloatField(blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
 
     def clean(self):
         super().clean()
@@ -99,9 +101,22 @@ class ToolAssembly(models.Model):
     machine = models.ForeignKey(Machine, on_delete=models.SET_DEFAULT, default=None, related_name='tools') #zrobić, żeby sie nie kasowało! # machine.tools
     holder = models.ForeignKey(Holder, on_delete=models.CASCADE)
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
 
     def get_comments(self):
         return self.comments.order_by('-date_posted')
+
+    def clean(self):
+        super().clean()
+        fields_to_check = ['tool_nr', 'radius', 'total_length', 'outside_holder']
+        for field_name in fields_to_check:
+            field_value = getattr(self, field_name)
+            if field_value is not None and field_value <= 0:
+                raise ValidationError(f"{field_name} musi być większe niż 0. wiadomosc z models")
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
 
 class UserComment(models.Model):
