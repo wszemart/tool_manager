@@ -4,6 +4,9 @@ from django.contrib.auth import logout as auth_logout
 from .forms import CustomUserCreationForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def register(request):
@@ -13,6 +16,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f"Account's been created for {username}!")
+            logger.info(f"Account's been created for {username}.")
             return redirect('login')
     else:
         form = CustomUserCreationForm()
@@ -21,10 +25,12 @@ def register(request):
 
 
 def logout(request):
+    user = request.user
     auth_logout(request)
 
     message = 'You have been successfully logged out!'
     messages.success(request, message)
+    logger.info(f"{user} have been successfully logged out.")
 
     return redirect('login')
 
@@ -40,8 +46,10 @@ def profile(request):
             if user_form.is_valid():
                 user_form.save()
                 messages.success(request, "Your profile's been updated")
+                logger.info(f"{request.user.profile.user} profile's been updated.")
                 return redirect('profile')
             else:
+                logger.info(f"{request.user.profile.user} is not authorized to edit profile.")
                 messages.error(request, "You are not authorized to edit this profile.")
 
     breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')},
