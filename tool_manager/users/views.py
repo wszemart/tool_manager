@@ -49,7 +49,7 @@ def profile(request):
                 logger.info(f"{request.user.profile.user} profile's been updated.")
                 return redirect('profile')
             else:
-                logger.info(f"{request.user.profile.user} is not authorized to edit profile.")
+                logger.info(f"{user_form.errors}")
                 messages.error(request, "You are not authorized to edit this profile.")
 
     breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')},

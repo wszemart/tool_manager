@@ -1,7 +1,7 @@
 {% load static %}
 {% block content %}
     <div class="container-fluid px-4">
-        <h4 class="mt-4 text-end">{{ machine.name }</h4>
+        <h4 class="mt-4 text-end">{{ machine.name }}</h4>
 
 
         <div class="card mb-4">
@@ -22,14 +22,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for tool_assembly in machine.tools.all %}
+                                {% for tool_assembly in machines %}
                             <tr>
-                                <td><a href="{% url 'tool-assembly-detail' tool_assembly.pk %}"/>{{ tool_assembly.tool_nr }}</td>
+                <td><a href="{% url 'tool-assembly-detail' tool_assembly.tool_number %}"/>{{ tool_assembly.tool_number }}</td>
                                 <td>{{ tool_assembly.radius }}</td>
                                 <td>{{ tool_assembly.total_length }}</td>
                                 <td>{{ tool_assembly.outside_holder }}</td>
-                                <td>{{ tool_assembly.holder.get_holder_type_display }}</td>
-                                <td>{{ tool_assembly.tool.get_tool_type_display }}</td>
+                                <td>{{ tool_assembly.holder_type_display }}</td>
+                                <td>{{ tool_assembly.tool_type_display }}</td>
                             </tr>
                         {% endfor %}
                             </tbody>

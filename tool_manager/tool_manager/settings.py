@@ -205,9 +205,9 @@ LOGGING = {
             'propagate': True,
         }
     },
-    'root': {
-        'level': 'INFO',
-        'handlers': ['console', 'file'],
-    },
+    # 'root': {
+    #     'level': 'INFO',
+    #     'handlers': ['console', 'file'],
+    # },
 }
 

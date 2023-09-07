@@ -1,7 +1,6 @@
 from django.urls import reverse
 
 
-
 class BreadcrumbMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -11,7 +10,6 @@ class BreadcrumbMixin:
     def get_breadcrumbs(self):
         from .breadcrumb_config import BREADCRUMB_CONFIG
         breadcrumbs = [{'title': 'Strona główna', 'url': reverse('app-home')}]
-
 
         view_class = self.__class__
 

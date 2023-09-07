@@ -38,6 +38,27 @@ class ToolAssemblyForm(forms.ModelForm):
         }
 
 
+class ToolAssemblySlim(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['radius'].widget.attrs['disabled'] = 'disabled'
+
+
+    class Meta:
+        model = ToolAssembly
+        fields = ['tool_nr', 'radius', 'total_length', 'outside_holder', 'machine', 'holder', 'tool']
+        labels = {
+            'tool_nr': 'Nr narzędzia',
+            'radius': 'R',
+            'total_length': 'Długość całkowita',
+            'outside_holder': 'Długość poza oprawką',
+            'machine': 'Maszyna',
+            'holder': 'Oprawka',
+            'tool': 'Frez',
+        }
+
+
 class UserCommentForm(forms.ModelForm):
     class Meta:
         model = UserComment

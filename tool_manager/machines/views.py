@@ -156,15 +156,16 @@ def generic_pdf(request):
         tools = machine.tools.all()
         for tool in tools:
             data.append({
-                'Nr narzędzia': tool.tool_nr,
-                'Promień': tool.radius,
-                'Długość całkowita': tool.total_length,
-                'Długość poza oprawką': tool.outside_holder,
-                'Maszyna': machine.name,
-                'Typ oprawki': tool.holder.get_holder_type_display(),
-                'Typ freza': tool.tool.get_tool_type_display(),
+                'tool_number': tool.tool_nr,
+                'radius': tool.radius,
+                'total_length': tool.total_length,
+                'outside_holder': tool.outside_holder,
+                'machine': machine.name,
+                'holder_type_display': tool.holder.get_holder_type_display(),
+                'tool_type_display': tool.tool.get_tool_type_display(),
             })
 
+    print(data)
     content = render_to_string("machines/root.html", {"machines": data})
 
     with NamedTemporaryFile(delete=False, suffix='.pdf') as file:
