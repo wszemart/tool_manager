@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 from .views import MachineDetailView, home, MachineCreateView, MachineDeleteView, MachineUpdateView, generate_csv, generic_pdf
 

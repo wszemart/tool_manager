@@ -1,4 +1,3 @@
-import datetime
 from tempfile import NamedTemporaryFile
 import os
 from django.shortcuts import render
@@ -13,9 +12,7 @@ import pandas as pd
 from django.http import HttpResponse
 from weasyprint import HTML
 from django.template.loader import render_to_string
-from django.shortcuts import redirect
 from django.urls import reverse
-# login_required, LoginRequiredMixin (class based view)
 from django.core.files.base import ContentFile
 import logging
 
@@ -84,7 +81,7 @@ class MachineCreateView(LoginRequiredMixin, BreadcrumbMixin, PermissionRequiredM
         return super().form_valid(form)
 
 
-class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin, UpdateView):
+class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'machines.change_machine'
     model = Machine
     template_name = 'machines/machine_form.html'
@@ -94,21 +91,21 @@ class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, UserPassesTestMixin
         form.instance.author = self.request.user
         logger.info(f"Machine {form.instance.name} updated by {form.instance.author}.")
         return super().form_valid(form)
+    #
+    # def test_func(self):
+    #     machine = self.get_object()
+    #     return self.request.user == machine.author
 
-    def test_func(self):
-        machine = self.get_object()
-        return self.request.user == machine.author
 
-
-class MachineDeleteView(LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin, DeleteView):
+class MachineDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'machines.delete_machine'
     model = Machine
     template_name = 'machines/delete_confirm.html'
     success_url = '/'
 
-    def test_func(self):
-        machine = self.get_object()
-        return self.request.user == machine.author
+    # def test_func(self):
+    #     machine = self.get_object()
+    #     return self.request.user == machine.author
 
     def post(self, request, *args, **kwargs):
         machine = self.get_object()
