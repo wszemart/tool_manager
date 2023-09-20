@@ -1,28 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView, UpdateView, DeleteView, View
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse
-from django.contrib.auth.models import User
-from notifications.models import UserNotification, Notification
-
-from django.contrib.auth.decorators import login_required
-from django.http import Http404
-from .forms import HolderForm, ToolForm, ToolAssemblyForm, UserCommentForm
+from .forms import HolderForm, ToolForm, ToolAssemblyForm, UserCommentForm, ToolAssemblySlim
 from .models import Holder, Tool, ToolAssembly, UserComment
-# from .mixins import BreadcrumbMixin
 import logging
 
 logger = logging.getLogger(__name__)
-
-# BREADCRUMB_CONFIG = {
-#     HolderListView: [
-#         {'title': 'Lista oprawek', 'url': reverse('holder')}
-#     ],
-#
-# } # TODO file breadcrum_config.py
-# # BreadcrumbMixin -> mixins.py
 
 
 class HolderListView(ListView):
@@ -71,10 +57,6 @@ class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         form.instance.author = self.request.user
         logger.info(f"Holder {form.instance.holder_type} updated by {form.instance.author}.")
         return super().form_valid(form)
-
-    # def test_func(self):
-    #     holder = self.get_object()
-    #     return self.request.user == holder.author
 
 
 class HolderDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -136,10 +118,6 @@ class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         form.instance.author = self.request.user
         logger.info(f"Tool {form.instance.tool_type} updated by {form.instance.author}.")
         return super().form_valid(form)
-
-    # def test_func(self):
-    #     holder = self.get_object()
-    #     return self.request.user == holder.author
 
 
 class ToolDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -211,7 +189,12 @@ class ToolAssemblyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
     permission_required = 'tools_assembly.change_toolassembly'
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
-    form_class = ToolAssemblyForm
+
+    def get_form_class(self):
+        if self.request.user.groups.filter(name='Operator').exists():
+            return ToolAssemblySlim
+        else:
+            return ToolAssemblyForm
 
     def get_success_url(self):
         return reverse('tool-assembly-detail', kwargs={'pk': self.object.pk})
@@ -230,20 +213,16 @@ class UserCommentListView(ListView):
 
 
 class ToolAssemblyAddCommentView(View):
+
     def post(self, request, pk):
         tool_assembly = get_object_or_404(ToolAssembly, pk=pk)
         comment_form = UserCommentForm(request.POST)
-        print('before comment')
         if comment_form.is_valid():
-            print(comment_form.errors)
             new_comment = comment_form.save(commit=False)
             new_comment.author = request.user
             new_comment.toolassembly = tool_assembly
             new_comment.save()
 
-            print('after comment and notification')
-
-        print('view from tool asembly')
         logger.info(f"New comment add to tool assembly nr: {tool_assembly.tool_nr} by {request.user}.")
 
         return redirect('tool-assembly-detail', pk=pk)

@@ -1,5 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Holder, Tool, ToolAssembly, UserComment
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class HolderForm(forms.ModelForm):
@@ -24,6 +26,7 @@ class ToolForm(forms.ModelForm):
 
 
 class ToolAssemblyForm(forms.ModelForm):
+
     class Meta:
         model = ToolAssembly
         fields = ['tool_nr', 'radius', 'total_length', 'outside_holder', 'machine', 'holder', 'tool']
@@ -42,8 +45,10 @@ class ToolAssemblySlim(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['radius'].widget.attrs['disabled'] = 'disabled'
-
+        self.fields['tool_nr'].widget.attrs['disabled'] = 'disabled'
+        self.fields['machine'].widget.attrs['disabled'] = 'disabled'
+        self.fields['holder'].widget.attrs['disabled'] = 'disabled'
+        self.fields['tool'].widget.attrs['disabled'] = 'disabled'
 
     class Meta:
         model = ToolAssembly
