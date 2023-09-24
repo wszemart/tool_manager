@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .forms import HolderForm, ToolForm, ToolAssemblyForm, UserCommentForm, ToolAssemblySlim
 from .models import Holder, Tool, ToolAssembly, UserComment
 import logging
@@ -36,7 +36,7 @@ class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Holder
     template_name = 'tools_assembly/holder_form.html'
     form_class = HolderForm
-    success_url = '/'
+    success_url = reverse_lazy('holder')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -97,7 +97,7 @@ class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tool
     template_name = 'tools_assembly/tool_form.html'
     form_class = ToolForm
-    success_url = '/'
+    success_url = reverse_lazy('tool')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -138,7 +138,7 @@ class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
-    success_url = '/'
+    success_url = reverse_lazy('tool_assembly')
 
     def form_valid(self, form):
         form.instance.author = self.request.user

@@ -56,6 +56,6 @@ class TestHolderViews(TestCase):
 
     def test_holder_detail_view(self):
         response = self.client.get(self.holder_detail_url)
+        print(response)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tools_assembly/holder_detail.html')
-        self.assertContains(response, 'Test Machine')

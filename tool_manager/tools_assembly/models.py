@@ -36,18 +36,6 @@ class Holder(models.Model):
     DH3 = models.FloatField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
 
-    def clean(self):
-        super().clean()
-        fields_to_check = ['LH1', 'DH1_A', 'DH1_B', 'LH2', 'DH2', 'LH3', 'DH3']
-        for field_name in fields_to_check:
-            field_value = getattr(self, field_name)
-            if field_value is not None and field_value <= 0:
-                raise ValidationError(f"{field_name} musi być większe niż 0.")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return self.holder_type_dict.get(self.holder_type, 'Unknown holder type')
 
@@ -76,18 +64,6 @@ class Tool(models.Model):
     L4 = models.FloatField(blank=True, null=True)
     D4 = models.FloatField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
-
-    def clean(self):
-        super().clean()
-        fields_to_check = ['R', 'L1', 'D1', 'L2', 'D2', 'L3', 'D3', 'L4', 'D4']
-        for field_name in fields_to_check:
-            field_value = getattr(self, field_name)
-            if field_value is not None and field_value <= 0:
-                raise ValidationError(f"{field_name} musi być większe niż 0.")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.tool_type_dict.get(self.tool_type, 'Unknown tool type')
