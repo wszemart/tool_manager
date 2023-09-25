@@ -1,5 +1,6 @@
 from django.test import TestCase
 from machines.forms import MachineForm
+from machines.factories import MachineFactory
 
 
 class MachineFormTestCase(TestCase):
@@ -29,3 +30,11 @@ class MachineFormTestCase(TestCase):
         })
         self.assertFalse(form.is_valid())
         self.assertIn('description', form.errors)
+
+    def test_machine_form_with_factory(self):
+        machine = MachineFactory()
+        form = MachineForm(data={
+            'name': machine.name,
+            'description': machine.description,
+        })
+        self.assertTrue(form.is_valid())

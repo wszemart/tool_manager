@@ -103,10 +103,6 @@ class MachineDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     template_name = 'machines/delete_confirm.html'
     success_url = '/'
 
-    # def test_func(self):
-    #     machine = self.get_object()
-    #     return self.request.user == machine.author
-
     def post(self, request, *args, **kwargs):
         machine = self.get_object()
         user = request.user

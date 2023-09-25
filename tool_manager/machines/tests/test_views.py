@@ -1,18 +1,16 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from machines.models import Machine
+from users.factories import UserFactory
+from machines.factories import MachineFactory
 
 
 class TestMachineViews(TestCase):
 
     def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(
-            username='testuser',
-            password='testpassword'
-        )
+        self.user = UserFactory()
         content_type = ContentType.objects.get_for_model(Machine)
 
         permission_add_machine = Permission.objects.get(
@@ -32,11 +30,10 @@ class TestMachineViews(TestCase):
             permission_change_machine,
             permission_delete_machine,
         )
-        self.client.login(username='testuser', password='testpassword')
-        self.machine = Machine.objects.create(
-            name='Test Machine',
-            description='Test description'
-        )
+
+        self.client.force_login(self.user)
+
+        self.machine = MachineFactory(author=self.user)
         self.machine_detail_url = reverse('machine-detail', kwargs={'pk': self.machine.pk})
         self.machine_create_url = reverse('machine-create')
         self.machine_update_url = reverse('machine-update', kwargs={'pk': self.machine.pk})
@@ -50,7 +47,7 @@ class TestMachineViews(TestCase):
         response = self.client.get(self.machine_detail_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'machines/machine_detail.html')
-        self.assertContains(response, 'Test Machine')
+        self.assertContains(response, self.machine.name)
 
     def test_machine_create_view_with_permission(self):
         response = self.client.post(self.machine_create_url, data=self.data)
@@ -78,11 +75,12 @@ class TestMachineViews(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_machine_delete_view_with_permission(self):
+        self.assertEqual(Machine.objects.count(), 1)
+
         response = self.client.post(self.machine_delete_url)
+
         self.assertEqual(Machine.objects.count(), 0)
         self.assertEqual(response.status_code, 302)
-        with self.assertRaises(Machine.DoesNotExist):
-            self.machine.refresh_from_db()
 
     def test_machine_delete_view_without_permission(self):
         machine_permission = Permission.objects.get(codename='delete_machine')
