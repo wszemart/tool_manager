@@ -1,18 +1,15 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
 from ..forms import HolderForm, ToolForm, ToolAssemblyForm, ToolAssemblySlim
-from ..models import Holder, Tool
-from machines.models import Machine
+from users.factories import UserFactory
+from machines.factories import MachineFactory
+from tools_assembly.factories import HolderFactory, ToolFactory
 
 
 class HolderFormTest(TestCase):
 
     def setUp(self) -> None:
 
-        self.user = User.objects.create_user(
-            username='testuser',
-            password='testpassword'
-        )
+        self.user = UserFactory()
         self.valid_data = {
             'holder_type': 'type_1',
             'catalog_nr': 'Katalog123',
@@ -44,10 +41,7 @@ class ToolFormTest(TestCase):
 
     def setUp(self) -> None:
 
-        self.user = User.objects.create_user(
-            username='testuser',
-            password='testpassword'
-        )
+        self.user = UserFactory()
         self.valid_data = {
             'tool_type': 'end_mill',
             'catalog_nr': 'Katalog123',
@@ -90,27 +84,10 @@ class ToolFormTest(TestCase):
 class ToolAssemblyFormTest(TestCase):
 
     def setUp(self) -> None:
-        self.user = User.objects.create_user(
-            username='testuser',
-            password='testpassword'
-        )
-
-        self.machine = Machine.objects.create(
-            name='Test Machine',
-            description='Test description'
-        )
-        self.holder = Holder.objects.create(
-            holder_type='type_1',
-            inner_diameter=12,
-            catalog_nr='Catalog123',
-            author=self.user
-
-        )
-        self.tool = Tool.objects.create(
-            tool_type='end_mill',
-            catalog_nr='Catalog123',
-            author=self.user,
-        )
+        self.user = UserFactory()
+        self.machine = MachineFactory()
+        self.holder = HolderFactory()
+        self.tool = ToolFactory()
         self.valid_data = {
             'tool_nr': 1,
             'radius': 12.5,

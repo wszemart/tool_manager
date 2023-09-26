@@ -3,16 +3,16 @@ from django.urls import reverse
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 from ..models import Holder
+from users.factories import UserFactory
+from tools_assembly.factories import HolderFactory
 
 
 class TestHolderViews(TestCase):
 
     def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(
-            username='testuser',
-            password='testpassword'
-        )
+        self.user_with_permission = UserFactory()
+        self.user_without_permission = UserFactory()
+
         content_type = ContentType.objects.get_for_model(Holder)
 
         permission_add_holder = Permission.objects.get(
@@ -27,20 +27,13 @@ class TestHolderViews(TestCase):
             content_type=content_type,
             codename='delete_holder'
         )
-        self.user.user_permissions.add(
+        self.user_with_permission.user_permissions.add(
             permission_add_holder,
             permission_change_holder,
             permission_delete_holder,
         )
-        self.client.login(username='testuser', password='testpassword')
-        self.holder = Holder.objects.create(
-            holder_type= 'type_1',
-            catalog_nr= 'Katalog123',
-            inner_diameter=5.0,
-            LH1=1.0,
-            DH1_A=2.0,
-            author=self.user
-        )
+
+        self.holder = HolderFactory(author=self.user_with_permission)
         self.holder_detail_url = reverse('holder-detail', kwargs={'pk': self.holder.pk})
         self.holder_create_url = reverse('holder-create')
         self.holder_update_url = reverse('holder-update', kwargs={'pk': self.holder.pk})
@@ -51,7 +44,7 @@ class TestHolderViews(TestCase):
             'inner_diameter': 5.0,
             'LH1': 1.0,
             'DH1_A': 2.0,
-            'author': self.user
+            'author': self.user_with_permission
         }
 
     def test_holder_detail_view(self):
@@ -59,3 +52,18 @@ class TestHolderViews(TestCase):
         print(response)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tools_assembly/holder_detail.html')
+
+    def test_holder_create_view_with_permission(self):
+        self.client.force_login(self.user_with_permission)
+        response = self.client.post(self.holder_create_url, data=self.data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Holder.objects.count(), 2)
+        holder = Holder.objects.last()
+        self.assertEqual(holder.catalog_nr, 'Katalog123')
+
+    def test_holder_create_view_without_permission(self):
+        self.client.force_login(self.user_without_permission)
+        response = self.client.post(self.holder_create_url, data=self.data)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(Holder.objects.count(), 1)
+

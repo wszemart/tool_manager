@@ -82,17 +82,17 @@ class ToolAssembly(models.Model):
     def get_comments(self):
         return self.comments.order_by('-date_posted')
 
-    def clean(self):
-        super().clean()
-        fields_to_check = ['tool_nr', 'radius', 'total_length', 'outside_holder']
-        for field_name in fields_to_check:
-            field_value = getattr(self, field_name)
-            if field_value is not None and field_value <= 0:
-                raise ValidationError(f"{field_name} musi być większe niż 0. wiadomosc z models")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
+    # def clean(self):
+    #     super().clean()
+    #     fields_to_check = ['tool_nr', 'radius', 'total_length', 'outside_holder']
+    #     for field_name in fields_to_check:
+    #         field_value = getattr(self, field_name)
+    #         if field_value is not None and field_value <= 0:
+    #             raise ValidationError(f"{field_name} musi być większe niż 0. wiadomosc z models")
+    #
+    # def save(self, *args, **kwargs):
+    #     self.clean()
+    #     super().save(*args, **kwargs)
 
 
 class UserComment(models.Model):
