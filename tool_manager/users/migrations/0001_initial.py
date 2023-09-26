@@ -11,6 +11,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('tools_assembly', '0001_initial'),
+        ('notifications', '0001_initial')
     ]
 
     operations = [
