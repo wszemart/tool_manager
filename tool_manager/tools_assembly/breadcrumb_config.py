@@ -1,5 +1,7 @@
 from django.urls import reverse
-from .views import HolderListView, HolderDetailView, HolderUpdateView, HolderCreateView, ToolListView, ToolDetailView, ToolUpdateView, ToolCreateView, ToolAssemblyCreateView, ToolAssemblyUpdateView, ToolAssemblyDetailView, ToolAssemblyListView
+from holders.views import HolderListView, HolderDetailView, HolderUpdateView, HolderCreateView
+from tools.views import ToolListView, ToolDetailView, ToolUpdateView, ToolCreateView
+from .views import ToolAssemblyCreateView, ToolAssemblyUpdateView, ToolAssemblyDetailView, ToolAssemblyListView
 
 BREADCRUMB_CONFIG = {
     HolderListView: [

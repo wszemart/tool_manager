@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'django_extensions',
     'fontawesomefree',
-    'notifications'
+    'notifications',
+    'holders',
+    'tools',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,7 @@ WSGI_APPLICATION = 'tool_manager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db_podzial_apek.sqlite3',
     }
 }
 

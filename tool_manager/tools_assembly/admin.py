@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import ToolAssembly, Holder, Tool, UserComment
+from .models import ToolAssembly, UserComment
 
 admin.site.register(ToolAssembly)
-admin.site.register(Holder)
-admin.site.register(Tool)
 admin.site.register(UserComment)

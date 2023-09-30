@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
         <h4 class="mt-4 text-end">{{ machine.name }}
 
-            {% if object.author == user %}
+            {% if perms.machines.change_machine %}
                 {% if perms.machines.add_machine %}
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'machine-update' object.id %}">Edytuj</a>
                 <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'machine-delete' object.id %}">Usuń</a>

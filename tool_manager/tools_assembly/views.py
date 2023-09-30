@@ -4,133 +4,11 @@ from django.views.generic.detail import DetailView
 from django.views.generic import CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse, reverse_lazy
-from .forms import HolderForm, ToolForm, ToolAssemblyForm, UserCommentForm, ToolAssemblySlim
-from .models import Holder, Tool, ToolAssembly, UserComment
+from .forms import ToolAssemblyForm, UserCommentForm, ToolAssemblySlim
+from .models import ToolAssembly, UserComment
 import logging
 
 logger = logging.getLogger(__name__)
-
-
-class HolderListView(ListView):
-    model = Holder
-    template_name = 'tools_assembly/holder.html'
-
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        logger.info(f'Holder List View accessed by user {user}')
-        return super().get(request, *args, **kwargs)
-
-
-class HolderDetailView(DetailView):
-    model = Holder
-    template_name = 'tools_assembly/holder_detail.html'
-
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        logger.info(f'Holder Detail View accessed by user {user}')
-        return super().get(request, *args, **kwargs)
-
-
-class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'tools_assembly.add_holder'
-    model = Holder
-    template_name = 'tools_assembly/holder_form.html'
-    form_class = HolderForm
-    success_url = reverse_lazy('holder')
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        logger.info(f"Holder {form.instance.holder_type} created by {form.instance.author}.")
-        return super().form_valid(form)
-
-
-class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'tools_assembly.change_holder'
-    model = Holder
-    template_name = 'tools_assembly/holder_form.html'
-    form_class = HolderForm
-
-    def get_success_url(self):
-        return reverse('holder-detail', kwargs={'pk': self.object.pk})
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        logger.info(f"Holder {form.instance.holder_type} updated by {form.instance.author}.")
-        return super().form_valid(form)
-
-
-class HolderDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'tools_assembly.delete_holder'
-    model = Holder
-    template_name = 'tools_assembly/delete_confirm.html'
-    success_url = '/'
-
-    def post(self, request, *args, **kwargs):
-        holder = self.get_object()
-        user = request.user
-        logger.info(f'Holder {holder.holder_type} deleted by user {user}')
-        return super().post(request, *args, **kwargs)
-
-
-class ToolListView(ListView):
-    model = Tool
-    template_name = 'tools_assembly/tool.html'
-
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        logger.info(f'Tool List View accessed by user {user}')
-        return super().get(request, *args, **kwargs)
-
-
-class ToolDetailView(DetailView):
-    model = Tool
-    template_name = 'tools_assembly/tool_detail.html'
-
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        logger.info(f'Tool Detail View accessed by user {user}')
-        return super().get(request, *args, **kwargs)
-
-
-class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'tools_assembly.add_tool'
-    model = Tool
-    template_name = 'tools_assembly/tool_form.html'
-    form_class = ToolForm
-    success_url = reverse_lazy('tool')
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        logger.info(f"Tool {form.instance.tool_type} created by user {form.instance.author}.")
-        return super().form_valid(form)
-
-
-class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'tools_assembly.change_tool'
-    model = Tool
-    template_name = 'tools_assembly/tool_form.html'
-    form_class = ToolForm
-
-    def get_success_url(self):
-        return reverse('tool-detail', kwargs={'pk': self.object.pk})
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        logger.info(f"Tool {form.instance.tool_type} updated by {form.instance.author}.")
-        return super().form_valid(form)
-
-
-class ToolDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'tools_assembly.delete_tool'
-    model = Tool
-    template_name = 'tools_assembly/tool_delete_confirm.html'
-    success_url = '/'
-
-    def post(self, request, *args, **kwargs):
-        tool = self.get_object()
-        user = request.user
-        logger.info(f'Tool {tool.tool_type} deleted by user {user}')
-        return super().post(request, *args, **kwargs)
 
 
 class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -138,7 +16,7 @@ class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     model = ToolAssembly
     template_name = 'tools_assembly/tool_assembly_form.html'
     form_class = ToolAssemblyForm
-    success_url = reverse_lazy('tool_assembly')
+    success_url = reverse_lazy('tool-assembly')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
