@@ -5,12 +5,14 @@ from django.contrib.contenttypes.models import ContentType
 from machines.models import Machine
 from users.factories import UserFactory
 from machines.factories import MachineFactory
+from django.test import tag
 
 
 class TestMachineViews(TestCase):
 
     def setUp(self):
         self.user = UserFactory()
+
         content_type = ContentType.objects.get_for_model(Machine)
 
         permission_add_machine = Permission.objects.get(
@@ -34,6 +36,7 @@ class TestMachineViews(TestCase):
         self.client.force_login(self.user)
 
         self.machine = MachineFactory(author=self.user)
+
         self.machine_detail_url = reverse('machine-detail', kwargs={'pk': self.machine.pk})
         self.machine_create_url = reverse('machine-create')
         self.machine_update_url = reverse('machine-update', kwargs={'pk': self.machine.pk})

@@ -31,7 +31,7 @@ class HolderDetailView(DetailView):
 
 
 class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'holder.add_holder'
+    permission_required = 'holders.add_holder'
     model = Holder
     template_name = 'holders/holder_form.html'
     form_class = HolderForm
@@ -44,7 +44,7 @@ class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'holder.change_holder'
+    permission_required = 'holders.change_holder'
     model = Holder
     template_name = 'holders/holder_form.html'
     form_class = HolderForm
@@ -59,7 +59,7 @@ class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class HolderDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'holder.delete_holder'
+    permission_required = 'holders.delete_holder'
     model = Holder
     template_name = 'holders/delete_confirm.html'
     success_url = '/'

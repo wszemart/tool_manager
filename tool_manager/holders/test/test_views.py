@@ -5,8 +5,9 @@ from django.contrib.contenttypes.models import ContentType
 from ..models import Holder
 from users.factories import UserFactory
 from holders.factories import HolderFactory
+from django.test import tag
 
-
+@tag('x')
 class TestHolderViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -32,6 +33,7 @@ class TestHolderViews(TestCase):
             permission_change_holder,
             permission_delete_holder,
         )
+        self.user_with_permission.save()
 
         self.holder = HolderFactory(author=self.user_with_permission)
         self.holder_detail_url = reverse('holder-detail', kwargs={'pk': self.holder.pk})

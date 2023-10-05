@@ -61,7 +61,6 @@ class TestToolAssemblyViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tools_assembly/tool_assembly_detail.html')
 
-    @tag('x')
     def test_toolassembly_create_view_with_permission(self):
         self.client.force_login(self.user_with_permission)
         response = self.client.post(self.toolassembly_create_url, data=self.data)
