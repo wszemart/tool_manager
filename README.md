@@ -44,7 +44,7 @@ To run this application, follow these steps:
 
 1.	Clone the repository:
     
-git clone https://github.com/twoje-username/nazwa-repozytorium
+git clone https://github.com/wszemart/tool_manager
 
 2. Navigate to the repository directory:
 
