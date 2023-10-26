@@ -15,7 +15,7 @@
 
 The Tool Manager project is based on design patterns, which help maintain the application's health and facilitate the development of its functionalities. Application testing is carried out using the built-in Django module: TestCase. The use of the Factory Boy library ensures that test data is randomly generated, allowing a thorough check of the application's correctness. Code formatting rules are strictly adhered to with the help of the isort and PEP8 Black libraries.
 
-The database is designed in PostgreSQL, which simplifies complex operations related to data processing and storage.
+The database is designed in Postgres, which simplifies complex operations related to data processing and storage.
 
 The user-friendly and intuitive Tool Manager user interface is created using the Bootstrap template. It enables convenient management of the machinery park, tool components (holders, tools), and the tools themselves.
 </details>
@@ -27,7 +27,7 @@ The user-friendly and intuitive Tool Manager user interface is created using the
 The Tool Manager project is built with the following technologies:
 - Python
 - Django
-- PostgreSQL
+- Postgres
 - Docker
 - Docker-compose
 - HTML
@@ -44,19 +44,19 @@ To run this application, follow these steps:
 
 1.	Clone the repository:
     
-git clone https://github.com/wszemart/tool_manager
+```git clone https://github.com/wszemart/tool_manager```
 
-2. Navigate to the repository directory:
+2.  Navigate to the repository directory:
 
-cd tool_manager
+```cd tool_manager```
 
 3.	Install all the required dependencies listed in the requirements.txt file. You can do this using the pip tool:
 
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
 4.	Run the application:
 
-python manage.py runserver
+```python manage.py runserver```
 
 After completing these steps, the application will be accessible at http://localhost:8000.
 
