@@ -1,9 +1,9 @@
-{% extends 'machines/index.html' %}
+{% extends "machines/index.html" %}
 {% load static %}
 {% block content %}
 <div class="container">
     <div class="col-lg text-center">
-        <img src="{% static 'media/tool.jpg' %}" alt="Tool Image" class="img-fluid rounded" style="max-width: 600px;">
+        <img src="{% static 'media/tool.jpg' %}" alt="Tool Image" class="img-fluid rounded" width="500" height="auto">
     </div>
     <div class="row justify-content-center">
         <div class="col-lg">
@@ -76,7 +76,7 @@
                                 <article class="media content-section">
                                     <div class="media-body">
                                         <div class="article-metadata">
-                                            <a class="mr-2" href="/profile/">{{ comment.author }}</a>
+                                            <a class="mr-2" href="{% url 'profile' %}">{{ comment.author }}</a>
                                             <small class="text-muted">{{ comment.date_posted }}</small>
                                         </div>
                                         <p class="article-content"><i>{{ comment.content }}</i></p>
@@ -111,4 +111,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

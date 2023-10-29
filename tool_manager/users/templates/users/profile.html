@@ -1,8 +1,6 @@
-{% extends 'machines/index.html' %}
+{% extends "machines/index.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg">
@@ -19,7 +17,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-            <form method="POST">
+            <form method="post">
                 {% csrf_token %}
                 <fieldset class="form-group">
                         {{ user_form|crispy }}

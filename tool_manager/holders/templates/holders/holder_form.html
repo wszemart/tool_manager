@@ -1,10 +1,10 @@
-{% extends 'machines/index.html' %}
+{% extends "machines/index.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
 <div class="container">
     <div class="col-lg text-center">
-        <img src="{% static 'media/tool.jpg' %}" alt="Tool Image" class="img-fluid rounded" style="max-width: 700px;">
+        <img src="{% static 'media/tool.jpg' %}" alt="Tool Image" class="img-fluid rounded" width="500" height="auto">
     </div>
     <div class="row justify-content-center">
         <div class="col-lg">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="content-section">
                     <div class="card-body">
-                        <form method="POST">
+                        <form method="post">
                             {% csrf_token %}
                             {% if form.errors %}
                             <div class="alert alert-danger">
@@ -92,4 +92,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

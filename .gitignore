@@ -36,7 +36,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+# Unit tests / coverage reports
 htmlcov/
 .tox/
 .nox/
@@ -59,7 +59,9 @@ cover/
 *.log
 local_settings.py
 tool_manager/db.sqlite3
+db_podzial_apek.sqlite3
 db.sqlite3-journal
+
 
 # Flask stuff:
 instance/
@@ -164,6 +166,9 @@ cython_debug/
 /machines/__init__.py
 /tool_manager/__init__.py
 /tool_assembly/__init__.py
+/holders/__init__.py
+/tools/__init__.py
 /users/__init__.py
 /static/
-
+/tool_manager/*.env
+.gitignore

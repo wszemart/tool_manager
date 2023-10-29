@@ -1,9 +1,9 @@
-{% extends 'machines/index.html' %}
+{% extends "machines/index.html" %}
 {% load static %}
 {% block content %}
 <div class="container">
     <div class="col-lg text-center">
-        <img src="{% static 'media/tool.jpg' %}" alt="Tool Image" class="img-fluid rounded" style="max-width: 700px;">
+        <img src="{% static 'media/tool.jpg' %}" alt="Tool Image" class="img-fluid rounded" width="500" height="auto">
     </div>
     <div class="row justify-content-center">
         <div class="col-lg">
@@ -34,7 +34,7 @@
                             <tbody>
                                 {% for tool_assembly in object_list %}
                                 <tr>
-                                    <td><a href="{% url 'tool-assembly-detail' tool_assembly.pk %}">{{ tool_assembly.tool_nr }}</td>
+                                    <td><a href="{% url 'tool-assembly-detail' tool_assembly.pk %}">{{ tool_assembly.tool_nr }}</a></td>
                                     <td>{{ tool_assembly.radius }}</td>
                                     <td>{{ tool_assembly.total_length }}</td>
                                     <td>{{ tool_assembly.outside_holder }}</td>
@@ -61,4 +61,4 @@ $(document).ready(function() {
     });
 });
 </script>
-{% endblock %}
+{% endblock content %}

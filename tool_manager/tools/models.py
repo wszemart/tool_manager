@@ -1,16 +1,15 @@
-from django.db import models
-from machines.models import Machine
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class Tool(models.Model):
     tool_type_choices = [
-        ('end_mill', 'WALEC'),
-        ('ball_nose', 'KULA'),
-        ('bull_nose', 'WALEC_Z_R'),
-        ('typer_ball_nose', 'STOZKOWY'),
-        ('engraving', 'GRAWERKA'),
-        ('drill', 'WIERTŁO'),
+        ("end_mill", "WALEC"),
+        ("ball_nose", "KULA"),
+        ("bull_nose", "WALEC_Z_R"),
+        ("typer_ball_nose", "STOZKOWY"),
+        ("engraving", "GRAWERKA"),
+        ("drill", "WIERTŁO"),
     ]
 
     tool_type_dict = dict(tool_type_choices)
@@ -29,4 +28,4 @@ class Tool(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
 
     def __str__(self):
-        return self.tool_type_dict.get(self.tool_type, 'Unknown tool type')
+        return self.tool_type_dict.get(self.tool_type, "Unknown tool type")

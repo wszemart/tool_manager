@@ -1,22 +1,22 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class Holder(models.Model):
     holder_type_choices = [
-        ('type_1', 'SLIM_100'),
-        ('type_2', 'SLIM_150'),
-        ('type_3', 'SLIM_200'),
-        ('type_4', 'TERMO_100'),
-        ('type_5', 'TERMO_150'),
-        ('type_6', 'TERMO_200'),
-        ('type_7', 'ER_32'),
-        ('type_8', 'ER_40'),
-        ('type_9', 'WELDON_100'),
-        ('type_10', 'WELDON_150'),
-        ('type_11', 'WELDON_200'),
-        ('type_12', 'STYROPIAN'),
-        ('type_13', 'UCHWYT_76'),
+        ("type_1", "SLIM_100"),
+        ("type_2", "SLIM_150"),
+        ("type_3", "SLIM_200"),
+        ("type_4", "TERMO_100"),
+        ("type_5", "TERMO_150"),
+        ("type_6", "TERMO_200"),
+        ("type_7", "ER_32"),
+        ("type_8", "ER_40"),
+        ("type_9", "WELDON_100"),
+        ("type_10", "WELDON_150"),
+        ("type_11", "WELDON_200"),
+        ("type_12", "STYROPIAN"),
+        ("type_13", "UCHWYT_76"),
     ]
 
     holder_type_dict = dict(holder_type_choices)
@@ -34,4 +34,4 @@ class Holder(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
 
     def __str__(self):
-        return self.holder_type_dict.get(self.holder_type, 'Unknown holder type')
+        return self.holder_type_dict.get(self.holder_type, "Unknown holder type")

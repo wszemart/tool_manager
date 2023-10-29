@@ -1,12 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+
 from tools_assembly.models import UserComment
 
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_comment = models.ForeignKey(UserComment, on_delete=models.CASCADE)
-    message = models.TextField(default='New comment!')
+    message = models.TextField(default="New comment!")
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

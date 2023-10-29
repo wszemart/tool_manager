@@ -1,4 +1,4 @@
-{% extends 'machines/index.html' %}
+{% extends "machines/index.html" %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -16,7 +16,7 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="article-metadata">
-                                                <a class="mr-2" href="/profile/">{{ user_notification.notification.user }}</a>
+                                                <a class="mr-2" href="{% url 'profile' %}">{{ user_notification.notification.user }}</a>
                                                 <small class="text-muted">{{ user_notification.notification.created_at }}</small>
                                             </div>
                                             <p class="article-content"><i>{{ user_notification.notification.user_comment.content }}</i></p>
@@ -60,4 +60,4 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock content %}

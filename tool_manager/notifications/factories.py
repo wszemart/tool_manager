@@ -1,8 +1,9 @@
 import factory
 from factory import Faker
+
 from notifications.models import Notification, UserNotification
-from users.factories import UserFactory
 from tools_assembly.factories import UserCommentFactory
+from users.factories import UserFactory
 
 
 class NotificationFactory(factory.django.DjangoModelFactory):
@@ -12,7 +13,7 @@ class NotificationFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
 
     user_comment = factory.SubFactory(UserCommentFactory)
-    message = Faker('text')
+    message = Faker("text")
 
 
 class UserNotificationFactory(factory.django.DjangoModelFactory):
@@ -20,5 +21,4 @@ class UserNotificationFactory(factory.django.DjangoModelFactory):
         model = UserNotification
 
     user = factory.SubFactory(UserFactory)
-    notification = Faker('text')
-
+    notification = Faker("text")

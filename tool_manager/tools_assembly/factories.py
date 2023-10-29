@@ -1,11 +1,13 @@
+import random
+
 import factory
 from factory import Faker
-import random
-from tools_assembly.models import ToolAssembly, UserComment
-from machines.factories import MachineFactory
-from users.factories import UserFactory
+
 from holders.factories import HolderFactory
+from machines.factories import MachineFactory
 from tools.factories import ToolFactory
+from tools_assembly.models import ToolAssembly, UserComment
+from users.factories import UserFactory
 
 
 class ToolAssemblyFactory(factory.django.DjangoModelFactory):
@@ -26,11 +28,6 @@ class UserCommentFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = UserComment
 
-    content = Faker('text')
+    content = Faker("text")
     author = factory.SubFactory(UserFactory)
     toolassembly = factory.SubFactory(ToolAssemblyFactory)
-
-
-
-
-
