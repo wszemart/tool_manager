@@ -4,8 +4,9 @@
 ## Table of Contents
 * [General Info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
-* [Functionality](#functionality)
+* [Local Machine Setup](#local-machine-setup)
+* [Docker Setup](#docker-setup)
+* [Functionalities](#functionalities)
 
 ## General Info
 <details>
@@ -24,19 +25,17 @@ The user-friendly and intuitive Tool Manager user interface is created using the
 <details>
 <summary>Click to expand</summary>
 
-The Tool Manager project is built with the following technologies:
-- Python
-- Django
-- Postgres
-- Docker
-- Docker-compose
-- HTML
-- CSS
+The Tool Manager project is built with the following technologies & tools:
+- Python 3.11 
+- Django 4.23
+- PostgreSQL 15 
+- Docker / Docker-Compose
+- HTML/CSS/Bootstrap
 
 
 </details>
 
-## Setup
+## Local Machine Setup
 <details>
 <summary>Click to expand</summary>
 
@@ -46,15 +45,20 @@ To run this application, follow these steps:
     
 ```git clone https://github.com/wszemart/tool_manager```
 
-2.  Navigate to the repository directory:
+2. Create virtual environment
+
+```python -m venv venv```
+
+
+3. Navigate to the repository directory:
 
 ```cd tool_manager```
 
-3.	Install all the required dependencies listed in the requirements.txt file. You can do this using the pip tool:
+4. Install all the required dependencies listed in the requirements.txt file. You can do this using the pip tool:
 
 ```pip install -r requirements.txt```
 
-4.	Run the application:
+5. Run the application:
 
 ```python manage.py runserver```
 
@@ -62,7 +66,25 @@ After completing these steps, the application will be accessible at http://local
 
 </details>
 
-## Functionality
+## Docker Setup
+<details>
+<summary>Click to expand</summary>
+
+1. Install Docker
+2. Download the repository
+3. Go to directory with Dockerfile and docker-compose.yaml files.
+4. On the command line, within this directory, build the image and start the container:
+
+```docker-compose build```
+5. If that's successful you can then start it up by: 
+
+```docker-compose up```
+6. Open http://0.0.0.0:8000 in your browser.
+
+
+</details>
+
+## Functionalities
 <details>
 <summary>Click here to see general information about <b>Functionality</b>!</summary>
 
