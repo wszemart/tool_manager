@@ -76,9 +76,11 @@ After completing these steps, the application will be accessible at http://local
 4. On the command line, within this directory, build the image and start the container:
 
 ```docker-compose build```
+
 5. If that's successful you can then start it up by: 
 
 ```docker-compose up```
+
 6. Open http://0.0.0.0:8000 in your browser.
 
 
