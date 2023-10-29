@@ -6,6 +6,6 @@ urlpatterns = [
     path("holder/", HolderListView.as_view(), name="holder"),
     path("holder/<int:pk>/", HolderDetailView.as_view(), name="holder-detail"),
     path("holder/new/", HolderCreateView.as_view(), name="holder-create"),
-    path("holder/update/<int:pk>", HolderUpdateView.as_view(), name="holder-update"),
-    path("holder/delete/<int:pk>", HolderDeleteView.as_view(), name="holder-delete"),
+    path("holder/<int:pk>/update/", HolderUpdateView.as_view(), name="holder-update"),
+    path("holder/<int:pk>/delete/", HolderDeleteView.as_view(), name="holder-delete"),
 ]

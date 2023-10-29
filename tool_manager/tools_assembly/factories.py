@@ -30,4 +30,4 @@ class UserCommentFactory(factory.django.DjangoModelFactory):
 
     content = Faker("text")
     author = factory.SubFactory(UserFactory)
-    toolassembly = factory.SubFactory(ToolAssemblyFactory)
+    tool_assembly = factory.SubFactory(ToolAssemblyFactory)

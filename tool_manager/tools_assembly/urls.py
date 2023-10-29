@@ -11,23 +11,23 @@ from .views import (
 
 urlpatterns = [
     path(
-        "tool_assembly/new/",
+        "tool-assembly/new/",
         ToolAssemblyCreateView.as_view(),
         name="tool-assembly-create",
     ),
-    path("tool_assembly/", ToolAssemblyListView.as_view(), name="tool-assembly"),
+    path("tool-assembly/", ToolAssemblyListView.as_view(), name="tool-assembly"),
     path(
-        "tool_assembly/<int:pk>/",
+        "tool-assembly/<int:pk>/",
         ToolAssemblyDetailView.as_view(),
         name="tool-assembly-detail",
     ),
     path(
-        "tool_assembly/delete/<int:pk>/",
+        "tool-assembly/<int:pk>/delete/",
         ToolAssemblyDeleteView.as_view(),
         name="tool-assembly-delete",
     ),
     path(
-        "tool_assembly/update/<int:pk>/",
+        "tool-assembly/<int:pk>/update/",
         ToolAssemblyUpdateView.as_view(),
         name="tool-assembly-update",
     ),

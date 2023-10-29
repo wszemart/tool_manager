@@ -36,4 +36,4 @@ class UserComment(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    toolassembly = models.ForeignKey(ToolAssembly, on_delete=models.CASCADE, related_name="comments")
+    tool_assembly = models.ForeignKey(ToolAssembly, on_delete=models.CASCADE, related_name="comments")

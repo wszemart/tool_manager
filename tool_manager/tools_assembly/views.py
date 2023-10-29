@@ -98,7 +98,7 @@ class ToolAssemblyAddCommentView(View):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.author = request.user
-            new_comment.toolassembly = tool_assembly
+            new_comment.tool_assembly = tool_assembly
             new_comment.save()
 
         logger.info(f"New comment add to tool assembly nr: {tool_assembly.tool_nr} by {request.user}.")
