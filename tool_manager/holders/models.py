@@ -21,17 +21,43 @@ class Holder(models.Model):
 
     holder_type_dict = dict(holder_type_choices)
 
-    holder_type = models.CharField(max_length=100, choices=holder_type_choices)
-    inner_diameter = models.PositiveIntegerField()
-    catalog_nr = models.CharField(max_length=100, blank=True)
-    LH1 = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    DH1_A = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    DH1_B = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    LH2 = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    DH2 = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    LH3 = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    DH3 = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None)
+    holder_type = models.CharField(max_length=100, choices=holder_type_choices, help_text="Holder type")
+    inner_diameter = models.PositiveIntegerField(help_text="Inner diameter of the holder")
+    catalog_nr = models.CharField(max_length=100, blank=True, help_text="Holder catalog number")
+    LH1 = models.DecimalField(
+        max_digits=10, decimal_places=3, blank=True, null=True, help_text="Length of the first holder segment"
+    )
+    DH1_A = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        blank=True,
+        null=True,
+        help_text="First outside diameter of the first holder segment",
+    )
+    DH1_B = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        blank=True,
+        null=True,
+        help_text="Second outside diameter of the first holder segment",
+    )
+    LH2 = models.DecimalField(
+        max_digits=10, decimal_places=3, blank=True, null=True, help_text="Length of the second holder segment"
+    )
+    DH2 = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        blank=True,
+        null=True,
+        help_text="Outside diameter of the second holder segment",
+    )
+    LH3 = models.DecimalField(
+        max_digits=10, decimal_places=3, blank=True, null=True, help_text="Length of the third holder segment"
+    )
+    DH3 = models.DecimalField(
+        max_digits=10, decimal_places=3, blank=True, null=True, help_text="Outside diameter of the third holder segment"
+    )
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=None, help_text="Author of the holder")
 
     def __str__(self):
         return self.holder_type_dict.get(self.holder_type, "Unknown holder type")
