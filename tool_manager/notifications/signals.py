@@ -22,5 +22,8 @@ def new_comment_notification(sender, instance, created, **kwargs):
 
         users_to_notify = User.objects.exclude(pk=instance.author.pk)
 
-        for user in users_to_notify:
-            UserNotification.objects.create(user=user, notification=new_notification)  # bulk_create
+        user_notifications_to_create = [
+            UserNotification(user=user, notification=new_notification) for user in users_to_notify
+        ]
+
+        UserNotification.objects.bulk_create(user_notifications_to_create)
