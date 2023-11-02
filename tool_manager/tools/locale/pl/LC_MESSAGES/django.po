@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-02 21:00+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\forms.py:34
+#, python-brace-format
+msgid "Value {field_name} have to be more than 0."
+msgstr "Wartość {field name} musi być większa niż 0"
+
+#: .\templates\tools\tool.html:13
+#, fuzzy
+#| msgid " Add new tool "
+msgid "Add tool"
+msgstr "Dodaj frez"
+
+#: .\templates\tools\tool.html:20
+msgid " Table of tools "
+msgstr "Tabela frezów"
+
+#: .\templates\tools\tool.html:26
+msgid " Tool type "
+msgstr "Typ freza"
+
+#: .\templates\tools\tool.html:27
+msgid " Catalog number "
+msgstr "Nr katalogowy"
+
+#: .\templates\tools\tool_delete_confirm.html:9
+msgid " Delete tool "
+msgstr "Usuń"
+
+#: .\templates\tools\tool_delete_confirm.html:15
+#, python-format
+msgid ""
+" Are you sure you want to delete the %(object.get_tool_type_display)s tool "
+"with a %(object.D1)s mm diameter?"
+msgstr "Czy napewno chcesz usunąć narzędzie %(object.get_tool_type_display)s o średnicy %(object.D1)s mm?"
+
+#: .\templates\tools\tool_delete_confirm.html:19
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: .\templates\tools\tool_detail.html:15
+msgid "Edit"
+msgstr "Edytuj"
+
+#: .\templates\tools\tool_detail.html:16
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\templates\tools\tool_detail.html:23
+msgid "Tool type"
+msgstr "Typ freza"
+
+#: .\templates\tools\tool_detail.html:26
+msgid "Catalog number"
+msgstr "Nr katalogowy"
+
+#: .\templates\tools\tool_form.html:14
+msgid " Add new tool "
+msgstr "Dodaj nowy frez"
+
+#: .\templates\tools\tool_form.html:22
+msgid "Invalid data entered:"
+msgstr "Wprowadzono niepoprawne dane"
+
+#: .\templates\tools\tool_form.html:84
+msgid "Save"
+msgstr "Zapisz"

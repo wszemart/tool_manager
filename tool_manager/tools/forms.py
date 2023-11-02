@@ -31,6 +31,6 @@ class ToolForm(forms.ModelForm):
         for field_name in fields_to_check:
             field_value = cleaned_data.get(field_name)
             if field_value is not None and field_value <= 0:
-                self.add_error(field_name, _(f"Wartość {field_name} musi być większa niż 0."))
+                self.add_error(field_name, _(f"Value {field_name} have to be more than 0."))
 
         return cleaned_data

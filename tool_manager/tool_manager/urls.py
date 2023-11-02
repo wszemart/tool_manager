@@ -37,4 +37,5 @@ urlpatterns = [
     ),
     path("logout/", LogoutUser.as_view(), name="logout"),
     path("profile/", UserProfile.as_view, name="profile"),
+    path("i18n/", include("django.conf.urls.i18n")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

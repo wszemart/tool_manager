@@ -1,4 +1,5 @@
 {% extends "machines/index.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <div class="container">
@@ -9,21 +10,21 @@
         <div class="col-lg">
             {% if perms.tools_assembly.add_tool %}
             <div class="text-end mb-3">
-                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-create' %}">Dodaj frez</a>
+                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-create' %}">{% trans "Add tool" %}</a>
             </div>
             {% endif %}
             <div class="card shadow-lg border-0 rounded-lg mt-3">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Tabela frezów
+                        {% blocktrans %} Table of tools {% endblocktrans %}
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th>Typ freza</th>
-                                    <th>Nr katalogowy</th>
+                                    <th>{% blocktrans %} Tool type {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Catalog number {% endblocktrans %}</th>
                                     <th>R</th>
                                     <th>L1</th>
                                     <th>D1</th>

@@ -1,4 +1,5 @@
 {% extends "machines/index.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <div class="container">
@@ -11,18 +12,18 @@
                 <div class="card-header">
                     {% if perms.tools_assembly.change_tool %}
                     <h3 class="text-left font-weight-light my-4">Dane freza: {{ object.get_tool_type_display }} o średnicy {{ object.D1 }} mm</h3>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tool-update' object.id %}">Edytuj</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tool-delete' object.id %}">Usuń</a>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tool-update' object.id %}">{% trans "Edit" %}</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tool-delete' object.id %}">{% trans "Delete" %}</a>
                     {% endif %}
                 </div>
                 <div class="content-section">
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col">
-                                <strong>Typ freza:</strong> {{ object.get_tool_type_display }}
+                                <strong>{% trans "Tool type" %}</strong> {{ object.get_tool_type_display }}
                             </div>
                             <div class="col">
-                                <strong>Nr katalogowy:</strong> {{ object.catalog_nr }}
+                                <strong>{% trans "Catalog number" %}</strong> {{ object.catalog_nr }}
                             </div>
                         </div>
                         <div class="row mb-3">
