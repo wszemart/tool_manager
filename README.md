@@ -122,7 +122,8 @@ Logged-in users in the 'Programmer' group can add, edit, and delete machines fro
 ## Screens
 <details>
 <summary>Click to expand</summary>
-![register](https://github.com/wszemart/tool_manager/assets/95930936/32cae54f-cb25-47be-b5d5-d75d3974c61b)
+ 
+![register](https://github.com/wszemart/tool_manager/assets/95930936/015d4400-832d-4c23-a96b-9d5ac476c6a9)
  
 ![main](https://github.com/wszemart/tool_manager/assets/95930936/db7231da-5155-4a32-ac1b-5dda0c78a8d8)
 
@@ -132,3 +133,4 @@ Logged-in users in the 'Programmer' group can add, edit, and delete machines fro
 
 ![comment](https://github.com/wszemart/tool_manager/assets/95930936/e9d51100-1deb-4698-8ac6-852fb7f104dd)
 </details>
+
