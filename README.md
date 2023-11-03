@@ -7,6 +7,7 @@
 * [Local Machine Setup](#local-machine-setup)
 * [Docker Setup](#docker-setup)
 * [Functionalities](#functionalities)
+* [Screens](#screens)
 
 ## General Info
 <details>
@@ -117,3 +118,19 @@ Logged-in users in the 'Programmer' group can add, edit, and delete machines fro
 </ul>
 
 </details>
+
+## Screens
+<details>
+<summary>Click to expand</summary>
+ 
+![register](https://github.com/wszemart/tool_manager/assets/95930936/015d4400-832d-4c23-a96b-9d5ac476c6a9)
+ 
+![main](https://github.com/wszemart/tool_manager/assets/95930936/db7231da-5155-4a32-ac1b-5dda0c78a8d8)
+
+![machine_view](https://github.com/wszemart/tool_manager/assets/95930936/3bc8531b-2f20-4ac3-974e-85b3c2370114)
+
+![tool_assembly view](https://github.com/wszemart/tool_manager/assets/95930936/94d6e003-3bc3-45ff-bad6-b6dfa3a30d53)
+
+![comment](https://github.com/wszemart/tool_manager/assets/95930936/e9d51100-1deb-4698-8ac6-852fb7f104dd)
+</details>
+
