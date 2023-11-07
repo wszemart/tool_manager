@@ -35,6 +35,8 @@ class ToolAssemblyForm(forms.ModelForm):
                 "Wartość pola 'Długość poza oprawką' musi być mniejsza niż 'Długość całkowita'.",
             )
 
+        return outside_holder
+
     def clean_radius(self):
         cleaned_data = super().clean()
         radius = cleaned_data.get("radius")
@@ -44,6 +46,8 @@ class ToolAssemblyForm(forms.ModelForm):
                 "radius",
                 "Promień musi być większy od 0 i mniejszy od 30.",
             )
+
+        return radius
 
     def clean(self):
         cleaned_data = super().clean()

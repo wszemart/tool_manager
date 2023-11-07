@@ -1,0 +1,103 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-07 17:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+#: .\forms.py:43
+#, python-brace-format
+msgid "Value {field_name} have to be more than 0."
+msgstr "Wartość {field_name} musi być większa niż 0"
+
+#: .\templates\holders\delete_confirm.html:9
+msgid " Delete holder "
+msgstr "Usuń oprawkę"
+
+#: .\templates\holders\delete_confirm.html:15
+#, python-format
+msgid ""
+" Are you sure you want to delete the %(object.get_holder_type_display)s "
+"holder with a %(object.inner_diameter)s mm inner diameter?"
+msgstr "Czy na pewno chcesz usunąć oprawkę %(object.get_holder_type_display)s o średnicy wewnętrznej %(object.inner_diameter)s mm?"
+
+#: .\templates\holders\delete_confirm.html:18
+msgid "Yes"
+msgstr "Tak"
+
+#: .\templates\holders\delete_confirm.html:19
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: .\templates\holders\holder.html:13
+msgid " Add holder "
+msgstr "Dodaj oprawkę"
+
+#: .\templates\holders\holder.html:20
+msgid " Table of holders "
+msgstr "Tabela oprawek"
+
+#: .\templates\holders\holder.html:26
+msgid " Holder type "
+msgstr "Typ oprawki"
+
+#: .\templates\holders\holder.html:27
+msgid " Catalog number "
+msgstr "Nr katalogowy"
+
+#: .\templates\holders\holder.html:28
+msgid " Inner diameter "
+msgstr "Średnica wewnętrzna"
+
+#: .\templates\holders\holder_detail.html:13
+#, python-format
+msgid ""
+" Holder data: %(object.get_holder_type_display)s, inner diameter: "
+"%(object.inner_diameter)s mm "
+msgstr "Dane oprawki: %(object.get_holder_type_display)s, średnica wewnętrzna: %(object.inner_diameter)s mm "
+
+#: .\templates\holders\holder_detail.html:15
+msgid "Edit"
+msgstr "Edytuj"
+
+#: .\templates\holders\holder_detail.html:16
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\templates\holders\holder_detail.html:23
+msgid "Holder type"
+msgstr "Typ oprawki"
+
+#: .\templates\holders\holder_detail.html:26
+msgid "Catalog number"
+msgstr "Nr katalogowy"
+
+#: .\templates\holders\holder_detail.html:29
+msgid "Inner diameter"
+msgstr "Średnica wewnętrzna"
+
+#: .\templates\holders\holder_form.html:14
+msgid " Add new holder "
+msgstr "Dodaj oprawkę"
+
+#: .\templates\holders\holder_form.html:22
+msgid "Invalid data entered:"
+msgstr "Wprowadzono niepoprawne dane: "
+
+#: .\templates\holders\holder_form.html:87
+msgid "Save"
+msgstr "Zapisz"

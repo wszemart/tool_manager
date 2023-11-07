@@ -10,7 +10,7 @@
         <div class="col-lg">
             {% if perms.tools_assembly.add_tool %}
             <div class="text-end mb-3">
-                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-create' %}">{% trans "Add tool" %}</a>
+                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-create' %}">{% blocktrans %} Add new tool {% endblocktrans %}</a>
             </div>
             {% endif %}
             <div class="card shadow-lg border-0 rounded-lg mt-3">

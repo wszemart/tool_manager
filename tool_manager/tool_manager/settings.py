@@ -146,7 +146,10 @@ LANGUAGES = [
 LANGUAGE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
     os.path.join(BASE_DIR, "tools/locale"),
+    os.path.join(BASE_DIR, "holders/locale"),
+    os.path.join(BASE_DIR, "tools_assembly/locale"),
 ]
+
 
 TIME_ZONE = "UTC"
 

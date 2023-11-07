@@ -15,7 +15,7 @@
                                 <h3>{% blocktrans %} Are you sure you want to delete the {{ object.get_tool_type_display }} tool with a {{ object.D1 }} mm diameter?{% endblocktrans %}</h3>
                             </fieldset>
                             <div class="form-group">
-                                <button class="btn btn-danger" type="submit">Tak</button>
+                                <button class="btn btn-danger" type="submit">{% trans "Yes" %}</button>
                                 <a class="btn btn-secondary" href="{% url 'tool-assembly-detail' object.id %}">{% trans "Cancel" %}</a>
                             </div>
                         </form>

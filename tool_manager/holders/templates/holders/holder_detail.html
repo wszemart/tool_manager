@@ -1,4 +1,5 @@
 {% extends "machines/index.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <div class="container">
@@ -9,23 +10,23 @@
         <div class="col-lg">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
-                    <h3 class="text-left font-weight-light my-4">Dane oprawki: {{ object.get_holder_type_display }} o średnicy wewnętrznej {{ object.inner_diameter }} mm</h3>
+                    <h3 class="text-left font-weight-light my-4">{% blocktrans %} Holder data: {{ object.get_holder_type_display }}, inner diameter: {{ object.inner_diameter }} mm {% endblocktrans %}</h3>
                     {% if perms.tools_assembly.change_holder %}
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'holder-update' object.id %}">Edytuj</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'holder-delete' object.id %}">Usuń</a>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'holder-update' object.id %}">{% trans "Edit" %}</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'holder-delete' object.id %}">{% trans "Delete" %}</a>
                     {% endif %}
                 </div>
                 <div class="content-section">
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col">
-                                <strong>Typ oprawki:</strong> {{ object.get_holder_type_display }}
+                                <strong>{% trans "Holder type" %}</strong> {{ object.get_holder_type_display }}
                             </div>
                             <div class="col">
-                                <strong>Nr katalogowy:</strong> {{ object.catalog_nr }}
+                                <strong>{% trans "Catalog number" %}</strong> {{ object.catalog_nr }}
                             </div>
                             <div class="col">
-                                <strong>Średnica wewnętrzna:</strong> {{ object.inner_diameter }}
+                                <strong>{% trans "Inner diameter" %}</strong> {{ object.inner_diameter }}
                             </div>
                         </div>
                         <div class="row mb-3">

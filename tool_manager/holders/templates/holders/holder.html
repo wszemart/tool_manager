@@ -1,4 +1,5 @@
 {% extends "machines/index.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <div class="container">
@@ -9,22 +10,22 @@
         <div class="col-lg">
             {% if perms.tools_assembly.add_holder %}
             <div class="text-end mb-3">
-                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'holder-create' %}">Dodaj oprawkę</a>
+                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'holder-create' %}">{% blocktrans %} Add holder {% endblocktrans %}</a>
             </div>
             {% endif %}
             <div class="card shadow-lg border-0 rounded-lg mt-3">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Tabela oprawek
+                        {% blocktrans %} Table of holders {% endblocktrans %}
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th>Typ oprawki</th>
-                                    <th>Nr katalogowy</th>
-                                    <th>Średnica wewnętrzna</th>
+                                    <th>{% blocktrans %} Holder type {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Catalog number {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Inner diameter {% endblocktrans %}</th>
                                     <th>LH1</th>
                                     <th>DH1 A</th>
                                     <th>DH1 B</th>

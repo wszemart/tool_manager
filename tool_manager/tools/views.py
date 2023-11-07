@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
@@ -25,7 +26,7 @@ class ToolDetailView(DetailView):
     model = Tool
     template_name = "tools/tool_detail.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         user = request.user
         logger.info(f"Tool Detail View accessed by user {user}")
         return super().get(request, *args, **kwargs)
