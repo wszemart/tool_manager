@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-07 19:47+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+#: .\forms.py:36 .\forms.py:101
+msgid ""
+"The length 'outside_holder' value must be smaller than the 'total length'."
+msgstr "Długość 'poza oprawką' musi być mniejsza niż 'długość całkowita'."
+
+#: .\forms.py:48 .\forms.py:111
+msgid "The radius must be greater than 0 and less than 30."
+msgstr "Promień musi być większy niż 0 i mniejszy niż 30."
+
+#: .\forms.py:60 .\forms.py:121
+#, python-brace-format
+msgid "Value {field_name} have to be more than 0."
+msgstr "Wartość pola {field_name} musi być większa niż0."
+
+#: .\forms.py:131
+msgid "Comment"
+msgstr "Komentarz"
+
+#: .\templates\tools_assembly\tool_assembly.html:13
+msgid " Add new tool assembly "
+msgstr "Dodaj nowe narzędzie"
+
+#: .\templates\tools_assembly\tool_assembly.html:20
+msgid " Table of tools assembly "
+msgstr "Tabela narzędzi"
+
+#: .\templates\tools_assembly\tool_assembly.html:26
+msgid " Tool assembly nr "
+msgstr "Nr narzędzia"
+
+#: .\templates\tools_assembly\tool_assembly.html:27
+msgid " Radius "
+msgstr "Promień"
+
+#: .\templates\tools_assembly\tool_assembly.html:28
+msgid " Total length "
+msgstr "Długość całkowita"
+
+#: .\templates\tools_assembly\tool_assembly.html:29
+msgid " Outside holder "
+msgstr "Długość poza oprawką"
+
+#: .\templates\tools_assembly\tool_assembly.html:30
+msgid " Machine "
+msgstr "Maszyna"
+
+#: .\templates\tools_assembly\tool_assembly.html:31
+msgid " Holder type "
+msgstr "Typ oprawki"
+
+#: .\templates\tools_assembly\tool_assembly.html:32
+msgid " Tool type "
+msgstr "Typ narzędzia"
+
+#: .\templates\tools_assembly\tool_assembly_delete_confirm.html:9
+msgid " Delete tool assembly "
+msgstr "Usuń narzędzie"
+
+#: .\templates\tools_assembly\tool_assembly_delete_confirm.html:15
+#, python-format
+msgid ""
+" Are you sure you want to delete tool assembly %(object.tool_nr)s with "
+"radius: %(object.radius)s mm? "
+msgstr "Czy na pewno chcesz usunąć narzędzie nr %(object.tool_nr)s o promieniu %(object.radius)s mm? "
+
+#: .\templates\tools_assembly\tool_assembly_delete_confirm.html:18
+msgid "Yes"
+msgstr "Tak"
+
+#: .\templates\tools_assembly\tool_assembly_delete_confirm.html:19
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:15
+msgid "Edit"
+msgstr "Edytuj"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:16
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:24
+msgid "Tool assembly nr: "
+msgstr "Nr narzędzia"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:27
+msgid "Radius: "
+msgstr "Promień"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:30
+msgid "Total length: "
+msgstr "Długość całkowita"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:35
+msgid "Outside holder: "
+msgstr "Długość poza oprawką"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:38
+msgid "Machine"
+msgstr "Maszyna"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:41
+msgid "Holder type: "
+msgstr "Typ oprawki"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:46
+msgid "Tool type: "
+msgstr "Typ narzędzia"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:58
+msgid "Comments"
+msgstr "Komentarze"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:65
+msgid "Add comment"
+msgstr "Dodaj komentarz"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:90
+msgid "Previous"
+msgstr "Poprzednia"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:104
+msgid "Next"
+msgstr "Następna"
+
+#: .\templates\tools_assembly\tool_assembly_detail.html:105
+msgid "Last"
+msgstr "Ostatnia"
+
+#: .\templates\tools_assembly\tool_assembly_form.html:14
+msgid "Add new tool assembly"
+msgstr "Dodaj nowe narzędzie"
+
+#: .\templates\tools_assembly\tool_assembly_form.html:22
+msgid "Invalid data entered: "
+msgstr "Wprowadzono niepoprawne dane: "
+
+#: .\templates\tools_assembly\tool_assembly_form.html:73
+msgid "Save"
+msgstr "Zapisz"
