@@ -1,4 +1,5 @@
 {% extends "machines/index.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <div class="container">
@@ -9,26 +10,26 @@
         <div class="col-lg">
             {% if perms.tools_assembly.add_toolassembly %}
             <div class="text-end mb-3">
-                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-assembly-create' %}">Dodaj narzędzie</a>
+                <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-assembly-create' %}">{% blocktrans %} Add new tool assembly {% endblocktrans %}</a>
             </div>
             {% endif %}
             <div class="card shadow-lg border-0 rounded-lg mt-3">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Tabela narzędzi
+                        {% blocktrans %} Table of tools assembly {% endblocktrans %}
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th>Nr narzędzia</th>
-                                    <th>Promień</th>
-                                    <th>Długość całkowita</th>
-                                    <th>Długość poza oprawką</th>
-                                    <th>Maszyna</th>
-                                    <th>Typ oprawki</th>
-                                    <th>Typ freza</th>
+                                    <th>{% blocktrans %} Tool assembly nr {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Radius {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Total length {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Outside holder {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Machine {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Holder type {% endblocktrans %}</th>
+                                    <th>{% blocktrans %} Tool type {% endblocktrans %}</th>
                                 </tr>
                             </thead>
                             <tbody>

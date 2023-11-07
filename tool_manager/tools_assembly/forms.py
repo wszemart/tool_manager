@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext as _
 
 from .models import ToolAssembly, UserComment
 
@@ -32,7 +33,7 @@ class ToolAssemblyForm(forms.ModelForm):
         if outside_holder is not None and total_length is not None and outside_holder >= total_length:
             self.add_error(
                 "outside_holder",
-                "Wartość pola 'Długość poza oprawką' musi być mniejsza niż 'Długość całkowita'.",
+                _("The length 'outside_holder' value must be smaller than the 'total length'."),
             )
 
         return outside_holder
@@ -44,7 +45,7 @@ class ToolAssemblyForm(forms.ModelForm):
         if radius is not None and (radius <= 0 or radius >= 30):
             self.add_error(
                 "radius",
-                "Promień musi być większy od 0 i mniejszy od 30.",
+                _("The radius must be greater than 0 and less than 30."),
             )
 
         return radius
@@ -56,7 +57,7 @@ class ToolAssemblyForm(forms.ModelForm):
             field_value = cleaned_data.get(field_name)
 
             if field_value is not None and field_value <= 0:
-                self.add_error(field_name, f"Wartość {field_name} musi być większa niż 0.")
+                self.add_error(field_name, _(f"Value {field_name} have to be more than 0."))
 
         return cleaned_data
 
@@ -97,7 +98,7 @@ class ToolAssemblySlim(forms.ModelForm):
         if outside_holder is not None and total_length is not None and outside_holder >= total_length:
             self.add_error(
                 "outside_holder",
-                "Wartość pola 'Długość poza oprawką' musi być mniejsza niż 'Długość całkowita'.",
+                _("The length 'outside_holder' value must be smaller than the 'total length'."),
             )
 
     def clean_radius(self):
@@ -107,7 +108,7 @@ class ToolAssemblySlim(forms.ModelForm):
         if radius is not None and (radius <= 0 or radius >= 30):
             self.add_error(
                 "radius",
-                "Promień musi być większy od 0 i mniejszy od 30.",
+                _("The radius must be greater than 0 and less than 30."),
             )
 
     def clean(self):
@@ -117,7 +118,7 @@ class ToolAssemblySlim(forms.ModelForm):
             field_value = cleaned_data.get(field_name)
 
             if field_value is not None and field_value <= 0:
-                self.add_error(field_name, f"Wartość {field_name} musi być większa niż 0.")
+                self.add_error(field_name, _(f"Value {field_name} have to be more than 0."))
 
         return cleaned_data
 
@@ -127,7 +128,7 @@ class UserCommentForm(forms.ModelForm):
         model = UserComment
         fields = ["content"]
         labels = {
-            "content": "Komentarz",
+            "content": _("Comment"),
         }
 
         widgets = {
