@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 {% block content %}
     <div class="container-fluid px-4">
@@ -5,18 +6,18 @@
         <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Tabela narzędzi
+                        {% trans "Tool table" %}
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th>Nr narzędzia</th>
-                                    <th>Promień</th>
-                                    <th>Długość całkowita</th>
-                                    <th>Długość poza oprawką</th>
-                                    <th>Typ oprawki</th>
-                                    <th>Typ freza</th>
+                                    <th>{% trans "Tool nr" %}</th>
+                                    <th>{% trans "Radius" %}</th>
+                                    <th>{% trans "Total length" %}</th>
+                                    <th>{% trans "Outside holder" %}</th>
+                                    <th>{% trans "Holder type" %}</th>
+                                    <th>{% trans "Tool type" %}</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-07 21:32+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\templates\machines\delete_confirm.html:9
+#, fuzzy
+#| msgid "Add machine"
+msgid "Delete machine"
+msgstr "Dodaj maszynę"
+
+#: .\templates\machines\delete_confirm.html:15
+#, fuzzy, python-format
+#| msgid " Are you sure you want to delete %(object.name)s? "
+msgid " Are you sure you want to delete \"%(object.name)s\"? "
+msgstr "Czy chcesz usunąć %(object.name)s ?"
+
+#: .\templates\machines\delete_confirm.html:18
+msgid "Yes"
+msgstr "Tak"
+
+#: .\templates\machines\delete_confirm.html:19
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: .\templates\machines\index.html:61
+msgid "User profile"
+msgstr "Profil użytkownika"
+
+#: .\templates\machines\index.html:63
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: .\templates\machines\index.html:73
+msgid "Main"
+msgstr "Główna"
+
+#: .\templates\machines\index.html:76
+msgid "Main site"
+msgstr "Strona główna"
+
+#: .\templates\machines\index.html:78
+msgid "Machines & tools"
+msgstr "Maszyny i narzędzia"
+
+#: .\templates\machines\index.html:81
+msgid "Machines"
+msgstr "Maszyny"
+
+#: .\templates\machines\index.html:91 .\templates\machines\machine.html:24
+msgid "Add machine"
+msgstr "Dodaj maszynę"
+
+#: .\templates\machines\index.html:97
+msgid "Tools"
+msgstr "Narzędzia"
+
+#: .\templates\machines\index.html:103
+msgid "Mill Tool"
+msgstr "Frez"
+
+#: .\templates\machines\index.html:108
+msgid "Mill tool table"
+msgstr "Tabela frezów"
+
+#: .\templates\machines\index.html:110
+msgid "Add mill tool"
+msgstr "Dodaj frez"
+
+#: .\templates\machines\index.html:115
+msgid "Holder"
+msgstr "Oprawki"
+
+#: .\templates\machines\index.html:120
+msgid "Holder table"
+msgstr "Tabela oprawek"
+
+#: .\templates\machines\index.html:122
+msgid "Add holder"
+msgstr "Dodaj oprawkę"
+
+#: .\templates\machines\index.html:127
+msgid "Tool assembly"
+msgstr "Narzędzie"
+
+#: .\templates\machines\index.html:132
+msgid "Tool assembly table"
+msgstr "Tabela narzędzi"
+
+#: .\templates\machines\index.html:134
+msgid "Add tool assembly"
+msgstr "Dodaj narzędzie"
+
+#: .\templates\machines\index.html:143
+msgid "Logged in as"
+msgstr "Zalogowano jako"
+
+#: .\templates\machines\machine.html:13
+msgid "Tools table"
+msgstr "Tabela oprawek"
+
+#: .\templates\machines\machine_detail.html:9
+msgid "Edit"
+msgstr "Edytuj"
+
+#: .\templates\machines\machine_detail.html:10
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\templates\machines\machine_detail.html:18
+msgid "Description"
+msgstr "Opis"
+
+#: .\templates\machines\machine_detail.html:39 .\templates\machines\root.html:9
+msgid "Tool table"
+msgstr "Tabela oprawek"
+
+#: .\templates\machines\machine_detail.html:45
+#: .\templates\machines\root.html:15
+msgid "Tool nr"
+msgstr "Narzędzia"
+
+#: .\templates\machines\machine_detail.html:46
+#: .\templates\machines\root.html:16
+msgid "Radius"
+msgstr "Promień"
+
+#: .\templates\machines\machine_detail.html:47
+#: .\templates\machines\root.html:17
+msgid "Total length"
+msgstr "Długość całkowita"
+
+#: .\templates\machines\machine_detail.html:48
+#: .\templates\machines\root.html:18
+msgid "Outside holder"
+msgstr "Długość poza oprawką"
+
+#: .\templates\machines\machine_detail.html:49
+#: .\templates\machines\root.html:19
+msgid "Holder type"
+msgstr "Typ oprawki"
+
+#: .\templates\machines\machine_detail.html:50
+#: .\templates\machines\root.html:20
+msgid "Tool type"
+msgstr "Typ freza"
+
+#: .\templates\machines\machine_form.html:9
+msgid "Add new machine"
+msgstr "Dodaj maszynę"
+
+#: .\templates\machines\machine_form.html:18
+msgid "Save"
+msgstr "Zapisz"

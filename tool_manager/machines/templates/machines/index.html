@@ -58,9 +58,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profil użytkownika</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">{% trans "User profile" %}</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Wyloguj</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
                 </li>
             </ul>
@@ -70,15 +70,15 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Main</div>
+                            <div class="sb-sidenav-menu-heading">{% trans "Main" %}</div>
                             <a class="nav-link" href="{% url 'app-home' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Strona główna
+                                {% trans "Main site" %}
                             </a>
-                            <div class="sb-sidenav-menu-heading">Maszyny & Narzędzia</div>
+                            <div class="sb-sidenav-menu-heading">{% trans "Machines & tools" %}</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Maszyny
+                                {% trans "Machines" %}
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -88,50 +88,50 @@
                                     {% endfor %}
 
                                     {% if perms.machines.add_machine %}
-                                    <a class="nav-link" href="{% url 'machine-create' %}">Dodaj maszynę</a>
+                                    <a class="nav-link" href="{% url 'machine-create' %}">{% trans "Add machine" %}</a>
                                     {% endif %}
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Narzędzia
+                                {% trans "Tools" %}
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Frez
+                                        {% trans "Mill Tool" %}
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="{% url 'tool' %}">Tabela frezów</a>
+                                            <a class="nav-link" href="{% url 'tool' %}">{% trans "Mill tool table" %}</a>
                                             {% if perms.tools_assembly.add_tool %}
-                                            <a class="nav-link" href="{% url 'tool-create' %}">Dodaj frez</a>
+                                            <a class="nav-link" href="{% url 'tool-create' %}">{% trans "Add mill tool" %}</a>
                                             {% endif %}
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Oprawka
+                                        {% trans "Holder" %}
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="{% url 'holder' %}">Tabela oprawek</a>
+                                            <a class="nav-link" href="{% url 'holder' %}">{% trans "Holder table" %}</a>
                                             {% if perms.tools_assembly.add_holder %}
-                                            <a class="nav-link" href="{% url 'holder-create' %}">Dodaj oprawkę</a>
+                                            <a class="nav-link" href="{% url 'holder-create' %}">{% trans "Add holder" %}</a>
                                             {% endif %}
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseTool" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Narzędzie
+                                        {% trans "Tool assembly" %}
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
                                     <div class="collapse" id="pagesCollapseTool" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="{% url 'tool-assembly' %}">Tabela narzędzi</a>
+                                            <a class="nav-link" href="{% url 'tool-assembly' %}">{% trans "Tool assembly table" %}</a>
                                             {% if perms.tools_assembly.add_toolassembly %}
-                                            <a class="nav-link" href="{% url 'tool-assembly-create' %}">Dodaj narzędzie</a>
+                                            <a class="nav-link" href="{% url 'tool-assembly-create' %}">{% trans "Add tool assembly" %}</a>
                                             {% endif %}
                                         </nav>
                                     </div>
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
+                        <div class="small">{% trans "Logged in as" %}:</div>
                         {{ user.username }}
                     </div>
                 </nav>

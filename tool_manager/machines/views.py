@@ -107,11 +107,6 @@ class MachineUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredM
         logger.info(f"Machine {form.instance.name} updated by {form.instance.author}.")
         return super().form_valid(form)
 
-    #
-    # def test_func(self):
-    #     machine = self.get_object()
-    #     return self.request.user == machine.author
-
 
 class MachineDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "machines.delete_machine"
@@ -182,8 +177,6 @@ def generic_pdf(request):
 
     with NamedTemporaryFile(delete=False, suffix=".pdf") as file:
         HTML(string=content).write_pdf(file.name)
-
-        logger.info(f"PDF generation completed by user: {request.user}")
 
         file.seek(0)
         pdf_content = file.read()
