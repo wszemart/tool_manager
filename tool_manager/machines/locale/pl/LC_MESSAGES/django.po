@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 21:32+0100\n"
+"POT-Creation-Date: 2023-11-08 19:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,16 +21,12 @@ msgstr ""
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: .\templates\machines\delete_confirm.html:9
-#, fuzzy
-#| msgid "Add machine"
-msgid "Delete machine"
-msgstr "Dodaj maszynę"
+msgid " Delete machine "
+msgstr "Usuń maszynę"
 
 #: .\templates\machines\delete_confirm.html:15
-#, fuzzy, python-format
-#| msgid " Are you sure you want to delete %(object.name)s? "
-msgid " Are you sure you want to delete \"%(object.name)s\"? "
-msgstr "Czy chcesz usunąć %(object.name)s ?"
+msgid " Are you sure you want to delete "
+msgstr "Czy chcesz usunąć "
 
 #: .\templates\machines\delete_confirm.html:18
 msgid "Yes"
