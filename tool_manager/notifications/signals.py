@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext as _
 
 from tools_assembly.models import UserComment
 
@@ -17,7 +18,7 @@ def new_comment_notification(sender, instance, created, **kwargs):
         new_notification = Notification.objects.create(
             user=instance.author,
             user_comment=instance,
-            message=f"New comment added by {instance.author}!",
+            message=_(f"New comment added by {instance.author}!"),
         )
 
         users_to_notify = User.objects.exclude(pk=instance.author.pk)
