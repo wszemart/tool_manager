@@ -8,12 +8,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .forms import ToolAssemblyForm, ToolAssemblySlim, UserCommentForm
+from .mixins import BreadcrumbMixin
 from .models import ToolAssembly, UserComment
 
 logger = logging.getLogger(__name__)
 
 
-class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class ToolAssemblyCreateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "tools_assembly.add_toolassembly"
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly_form.html"
@@ -26,7 +27,7 @@ class ToolAssemblyCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
         return super().form_valid(form)
 
 
-class ToolAssemblyListView(ListView):
+class ToolAssemblyListView(BreadcrumbMixin, ListView):
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly.html"
 

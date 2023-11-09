@@ -123,7 +123,7 @@ Logged-in users in the 'Programmer' group can add, edit, and delete machines fro
 <details>
 <summary>Click to expand</summary>
 
-![register](https://github.com/wszemart/tool_manager/assets/95930936/015d4400-832d-4c23-a96b-9d5ac476c6a9)
+![register](https://github.com/wszemart/tool_manager/assets/95930936/20927c3d-5798-4b2a-ace5-057ec7db2f2b)
 
 ![main](https://github.com/wszemart/tool_manager/assets/95930936/db7231da-5155-4a32-ac1b-5dda0c78a8d8)
 

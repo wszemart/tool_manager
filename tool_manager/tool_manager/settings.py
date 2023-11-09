@@ -149,6 +149,7 @@ LANGUAGE_PATHS = [
     os.path.join(BASE_DIR, "holders/locale"),
     os.path.join(BASE_DIR, "tools_assembly/locale"),
     os.path.join(BASE_DIR, "machines/locale"),
+    os.path.join(BASE_DIR, "notifications/locale"),
 ]
 
 

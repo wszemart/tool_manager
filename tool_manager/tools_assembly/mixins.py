@@ -19,11 +19,13 @@ class BreadcrumbMixin:
                 breadcrumb = breadcrumb_config.copy()
 
                 if callable(breadcrumb["title"]):
-                    breadcrumb["title"] = breadcrumb["title"](self.object)
+                    breadcrumb_title = breadcrumb["title"](self.object)
+                else:
+                    breadcrumb_title = breadcrumb["title"]
 
                 if "{pk}" in breadcrumb["url"]:
                     breadcrumb["url"] = breadcrumb["url"].format(pk=self.object.id)
 
-                breadcrumbs.extend(breadcrumb)
+                breadcrumbs.append({"title": breadcrumb_title, "url": breadcrumb["url"]})
 
         return breadcrumbs
