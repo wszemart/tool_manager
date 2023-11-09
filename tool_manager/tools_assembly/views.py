@@ -8,10 +8,44 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .forms import ToolAssemblyForm, ToolAssemblySlim, UserCommentForm
-from .mixins import BreadcrumbMixin
 from .models import ToolAssembly, UserComment
 
 logger = logging.getLogger(__name__)
+
+
+class BreadcrumbMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumbs"] = self.get_breadcrumbs()
+        return context
+
+    def get_breadcrumbs(self):
+        breadcrumbs = [{"title": "Strona główna", "url": reverse("app-home")}]
+
+        if isinstance(self, ToolAssemblyListView):
+            breadcrumbs.append({"title": "Tabela narzędzi", "url": reverse("tool-assembly")})
+        elif isinstance(self, ToolAssemblyDetailView):
+            assembly = self.get_object()
+            breadcrumbs.append({"title": "Tabela narzędzi", "url": reverse("tool-assembly")})
+            breadcrumbs.append(
+                {
+                    "title": f"Narzędzie numer: {assembly.tool_nr}",
+                    "url": reverse("tool-assembly-detail", kwargs={"pk": assembly.pk}),
+                }
+            )
+        elif isinstance(self, ToolAssemblyCreateView):
+            breadcrumbs.append({"title": "Utwórz nowe narzędzie", "url": reverse("tool-assembly-create")})
+        elif isinstance(self, ToolAssemblyUpdateView):
+            assembly = self.get_object()
+            breadcrumbs.append({"title": "Tabela narzędzi", "url": reverse("tool-assembly")})
+            breadcrumbs.append(
+                {
+                    "title": "Aktualizuj narzędzie",
+                    "url": reverse("tool-assembly-update", kwargs={"pk": assembly.pk}),
+                }
+            )
+
+        return breadcrumbs
 
 
 class ToolAssemblyCreateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -37,7 +71,7 @@ class ToolAssemblyListView(BreadcrumbMixin, ListView):
         return super().get(request, *args, **kwargs)
 
 
-class ToolAssemblyDetailView(DetailView):
+class ToolAssemblyDetailView(BreadcrumbMixin, DetailView):
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly_detail.html"
 
@@ -66,7 +100,7 @@ class ToolAssemblyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
         return super().post(request, *args, **kwargs)
 
 
-class ToolAssemblyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ToolAssemblyUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "tools_assembly.change_toolassembly"
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly_form.html"

@@ -13,7 +13,42 @@ from .models import Tool
 logger = logging.getLogger(__name__)
 
 
-class ToolListView(ListView):
+class BreadcrumbMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumbs"] = self.get_breadcrumbs()
+        return context
+
+    def get_breadcrumbs(self):
+        breadcrumbs = [{"title": "Strona główna", "url": reverse("app-home")}]
+
+        if isinstance(self, ToolListView):
+            breadcrumbs.append({"title": "Tabela frezów", "url": reverse("tool")})
+        elif isinstance(self, ToolDetailView):
+            tool = self.get_object()
+            breadcrumbs.append({"title": "Tabela frezów", "url": reverse("tool")})
+            breadcrumbs.append(
+                {
+                    "title": f"Frez: {tool.get_tool_type_display()}, FI: {tool.D1}",
+                    "url": reverse("tool-detail", kwargs={"pk": tool.pk}),
+                }
+            )
+        elif isinstance(self, ToolCreateView):
+            breadcrumbs.append({"title": "Utwórz nowy frez", "url": reverse("tool-create")})
+        elif isinstance(self, ToolUpdateView):
+            tool = self.get_object()
+            breadcrumbs.append({"title": "Tabela frezów", "url": reverse("tool")})
+            breadcrumbs.append(
+                {
+                    "title": "Aktualizuj frez",
+                    "url": reverse("tool-update", kwargs={"pk": tool.pk}),
+                }
+            )
+
+        return breadcrumbs
+
+
+class ToolListView(BreadcrumbMixin, ListView):
     model = Tool
     template_name = "tools/tool.html"
 
@@ -22,7 +57,7 @@ class ToolListView(ListView):
         return super().get(request, *args, **kwargs)
 
 
-class ToolDetailView(DetailView):
+class ToolDetailView(BreadcrumbMixin, DetailView):
     model = Tool
     template_name = "tools/tool_detail.html"
 
@@ -32,7 +67,7 @@ class ToolDetailView(DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class ToolCreateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "tools.add_tool"
     model = Tool
     template_name = "tools/tool_form.html"
@@ -49,7 +84,7 @@ class ToolCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_invalid(form)
 
 
-class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ToolUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "tools.change_tool"
     model = Tool
     template_name = "tools/tool_form.html"
@@ -64,7 +99,7 @@ class ToolUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ToolDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class ToolDeleteView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "tools.delete_tool"
     model = Tool
     template_name = "tools/tool_delete_confirm.html"

@@ -10,7 +10,7 @@
         <div class="col-lg">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
-                    <h3 class="text-left font-weight-light my-4">{% blocktrans %} Holder data: {{ object.get_holder_type_display }}, inner diameter: {{ object.inner_diameter }} mm {% endblocktrans %}</h3>
+                    <h3 class="text-left font-weight-light my-4">{% blocktrans %}  {% endblocktrans %}</h3>
                     {% if perms.tools_assembly.change_holder %}
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'holder-update' object.id %}">{% trans "Edit" %}</a>
                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'holder-delete' object.id %}">{% trans "Delete" %}</a>

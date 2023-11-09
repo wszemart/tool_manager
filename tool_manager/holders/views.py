@@ -12,7 +12,43 @@ from .models import Holder
 logger = logging.getLogger(__name__)
 
 
-class HolderListView(ListView):
+class BreadcrumbMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumbs"] = self.get_breadcrumbs()
+        return context
+
+    def get_breadcrumbs(self):
+        breadcrumbs = [{"title": "Strona główna", "url": reverse("app-home")}]
+
+        if isinstance(self, HolderListView):
+            breadcrumbs.append({"title": "Tabela oprawek", "url": reverse("holder")})
+        elif isinstance(self, HolderDetailView):
+            holder = self.get_object()
+            breadcrumbs.append({"title": "Tabela oprawek", "url": reverse("holder")})
+            breadcrumbs.append(
+                {
+                    "title": f"Oprawka: {holder.get_holder_type_display()}",
+                    "url": reverse("holder-detail", kwargs={"pk": holder.pk}),
+                }
+            )
+        elif isinstance(self, HolderCreateView):
+            breadcrumbs.append({"title": "Tabela oprawek", "url": reverse("holder")})
+            breadcrumbs.append({"title": "Utwórz nową oprawkę", "url": reverse("holder-create")})
+        elif isinstance(self, HolderUpdateView):
+            holder = self.get_object()
+            breadcrumbs.append({"title": "Tabela oprawek", "url": reverse("holder")})
+            breadcrumbs.append(
+                {
+                    "title": "Aktualizuj oprawkę",
+                    "url": reverse("holder-update", kwargs={"pk": holder.pk}),
+                }
+            )
+
+        return breadcrumbs
+
+
+class HolderListView(BreadcrumbMixin, ListView):
     model = Holder
     template_name = "holders/holder.html"
 
@@ -22,7 +58,7 @@ class HolderListView(ListView):
         return super().get(request, *args, **kwargs)
 
 
-class HolderDetailView(DetailView):
+class HolderDetailView(BreadcrumbMixin, DetailView):
     model = Holder
     template_name = "holders/holder_detail.html"
 
@@ -32,7 +68,7 @@ class HolderDetailView(DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class HolderCreateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "holders.add_holder"
     model = Holder
     template_name = "holders/holder_form.html"
@@ -45,7 +81,7 @@ class HolderCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class HolderUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class HolderUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "holders.change_holder"
     model = Holder
     template_name = "holders/holder_form.html"
