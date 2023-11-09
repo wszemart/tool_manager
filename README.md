@@ -125,11 +125,11 @@ Logged-in users in the 'Programmer' group can add, edit, and delete machines fro
 
 ![register](https://github.com/wszemart/tool_manager/assets/95930936/20927c3d-5798-4b2a-ace5-057ec7db2f2b)
 
-![main](https://github.com/wszemart/tool_manager/assets/95930936/db7231da-5155-4a32-ac1b-5dda0c78a8d8)
+![main](https://github.com/wszemart/tool_manager/assets/95930936/85318f5a-2228-4899-a9c9-d2119904c05c)
 
-![machine_view](https://github.com/wszemart/tool_manager/assets/95930936/3bc8531b-2f20-4ac3-974e-85b3c2370114)
+![machine_view](https://github.com/wszemart/tool_manager/assets/95930936/ebeb627e-2ae2-4cae-85d7-9ea1af75ddbd)
 
-![tool_assembly view](https://github.com/wszemart/tool_manager/assets/95930936/94d6e003-3bc3-45ff-bad6-b6dfa3a30d53)
+![tool_assembly view](https://github.com/wszemart/tool_manager/assets/95930936/f8c37564-9c1a-43a8-8c73-50b3b23266da)
 
-![comment](https://github.com/wszemart/tool_manager/assets/95930936/e9d51100-1deb-4698-8ac6-852fb7f104dd)
+![comment](https://github.com/wszemart/tool_manager/assets/95930936/ebdcf05b-b30d-487b-b95b-6f5cf53aec87)
 </details>
