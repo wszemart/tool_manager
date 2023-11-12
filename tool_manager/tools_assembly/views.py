@@ -1,6 +1,8 @@
 import logging
+from typing import Dict, List, Type, Union
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, View
@@ -11,15 +13,16 @@ from .forms import ToolAssemblyForm, ToolAssemblySlim, UserCommentForm
 from .models import ToolAssembly, UserComment
 
 logger = logging.getLogger(__name__)
+Breadcrumb = Dict[str, Union[str, str]]
 
 
 class BreadcrumbMixin:
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Union[str, List[Breadcrumb]]]:
         context = super().get_context_data(**kwargs)
         context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self) -> List[Breadcrumb]:
         breadcrumbs = [{"title": "Strona główna", "url": reverse("app-home")}]
 
         if isinstance(self, ToolAssemblyListView):
@@ -55,7 +58,7 @@ class ToolAssemblyCreateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequ
     form_class = ToolAssemblyForm
     success_url = reverse_lazy("tool-assembly")
 
-    def form_valid(self, form):
+    def form_valid(self, form: ToolAssemblyForm) -> HttpResponse:
         form.instance.author = self.request.user
         logger.info(f"Tool assembly nr: {form.instance.tool_nr} created by user {form.instance.author}.")
         return super().form_valid(form)
@@ -65,7 +68,7 @@ class ToolAssemblyListView(BreadcrumbMixin, ListView):
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         user = request.user
         logger.info(f"Tool assembly List View accessed by user {user}")
         return super().get(request, *args, **kwargs)
@@ -75,12 +78,12 @@ class ToolAssemblyDetailView(BreadcrumbMixin, DetailView):
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly_detail.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs) -> Dict[str, Union[str, List[Breadcrumb], UserCommentForm]]:
+        context: Dict[str, Union[str, List[Breadcrumb], UserCommentForm]] = super().get_context_data(**kwargs)
         context["comment_form"] = UserCommentForm()
         return context
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         tool_assembly = self.get_object()
         user = request.user
         logger.info(f"Tool assembly nr: {tool_assembly.tool_nr} Detail View accessed by user {user}")
@@ -93,7 +96,7 @@ class ToolAssemblyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
     template_name = "tools_assembly/tool_assembly_delete_confirm.html"
     success_url = "/"
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         tool_assembly = self.get_object()
         user = request.user
         logger.info(f"Tool assembly nr: {tool_assembly.tool_nr} deleted by user {user}")
@@ -105,15 +108,15 @@ class ToolAssemblyUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequ
     model = ToolAssembly
     template_name = "tools_assembly/tool_assembly_form.html"
 
-    def get_form_class(self):
+    def get_form_class(self) -> Type[Union[ToolAssemblySlim, ToolAssemblyForm]]:
         if self.request.user.groups.filter(name="Operator").exists():
             return ToolAssemblySlim
         return ToolAssemblyForm
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse("tool-assembly-detail", kwargs={"pk": self.object.pk})
 
-    def form_valid(self, form):
+    def form_valid(self, form: Union[ToolAssemblySlim, ToolAssemblyForm]) -> HttpResponse:
         form.instance.author = self.request.user
         logger.info(f"Tool assembly nr: {form.instance.tool_nr} updated by {form.instance.author}.")
         return super().form_valid(form)
@@ -127,7 +130,7 @@ class UserCommentListView(ListView):
 
 
 class ToolAssemblyAddCommentView(View):
-    def post(self, request, pk):
+    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
         tool_assembly = get_object_or_404(ToolAssembly, pk=pk)
         comment_form = UserCommentForm(request.POST)
         if comment_form.is_valid():

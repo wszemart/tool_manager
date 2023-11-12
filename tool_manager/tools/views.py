@@ -1,4 +1,5 @@
 import logging
+from typing import Dict, List, Union
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpRequest, HttpResponse
@@ -10,16 +11,18 @@ from django.views.generic.list import ListView
 from .forms import ToolForm
 from .models import Tool
 
+Breadcrumb = Dict[str, Union[str, str]]
+
 logger = logging.getLogger(__name__)
 
 
 class BreadcrumbMixin:
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Union[str, List[Breadcrumb]]]:
         context = super().get_context_data(**kwargs)
         context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self) -> List[Breadcrumb]:
         breadcrumbs = [{"title": "Strona główna", "url": reverse("app-home")}]
 
         if isinstance(self, ToolListView):
@@ -52,7 +55,7 @@ class ToolListView(BreadcrumbMixin, ListView):
     model = Tool
     template_name = "tools/tool.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         logger.info(f"Tool List View accessed by user {request.user}")
         return super().get(request, *args, **kwargs)
 
@@ -74,12 +77,12 @@ class ToolCreateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixi
     form_class = ToolForm
     success_url = reverse_lazy("tool")
 
-    def form_valid(self, form):
+    def form_valid(self, form: ToolForm) -> HttpResponse:
         form.instance.author = self.request.user
         logger.info(f"Tool {form.instance.tool_type} created by user {form.instance.author}.")
         return super().form_valid(form)
 
-    def form_invalid(self, form):
+    def form_invalid(self, form: ToolForm) -> HttpResponse:
         print(form.errors)
         return super().form_invalid(form)
 
@@ -90,10 +93,10 @@ class ToolUpdateView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixi
     template_name = "tools/tool_form.html"
     form_class = ToolForm
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse("tool-detail", kwargs={"pk": self.object.pk})
 
-    def form_valid(self, form):
+    def form_valid(self, form: ToolForm) -> HttpResponse:
         form.instance.author = self.request.user
         logger.info(f"Tool {form.instance.tool_type} updated by {form.instance.author}.")
         return super().form_valid(form)
@@ -105,7 +108,7 @@ class ToolDeleteView(BreadcrumbMixin, LoginRequiredMixin, PermissionRequiredMixi
     template_name = "tools/tool_delete_confirm.html"
     success_url = "/"
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         tool = self.get_object()
         logger.info(f"Tool {tool.tool_type} deleted by user {request.user}")
         return super().post(request, *args, **kwargs)
