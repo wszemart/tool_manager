@@ -1,6 +1,4 @@
 import logging
-import os
-from tempfile import NamedTemporaryFile
 from typing import Dict, List, Union
 
 import pandas as pd
@@ -8,15 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from weasyprint import HTML
 
 from .forms import MachineForm
 from .models import Machine
+
+# from weasyprint import HTML
+
 
 logger = logging.getLogger(__name__)
 Breadcrumb = Dict[str, Union[str, str]]
@@ -154,40 +153,40 @@ def generate_csv(request: HttpRequest) -> HttpResponse:
     return response
 
 
-def generic_pdf(request: HttpRequest) -> HttpResponse:
-    os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
-
-    machines = Machine.objects.all()
-    data = []
-
-    for machine in machines:
-        tools = machine.tools.all()
-        for tool in tools:
-            data.append(
-                {
-                    "tool_number": tool.tool_nr,
-                    "radius": tool.radius,
-                    "total_length": tool.total_length,
-                    "outside_holder": tool.outside_holder,
-                    "machine": machine.name,
-                    "holder_type_display": tool.holder.get_holder_type_display(),
-                    "tool_type_display": tool.tool.get_tool_type_display(),
-                }
-            )
-
-    content = render_to_string("machines/root.html", {"machines": data})
-
-    with NamedTemporaryFile(delete=False, suffix=".pdf") as file:
-        HTML(string=content).write_pdf(file.name)
-
-        file.seek(0)
-        pdf_content = file.read()
-
-    response = HttpResponse(pdf_content, content_type="application/pdf")
-    response["Content-Disposition"] = 'inline; filename="generated.pdf"'
-
-    os.remove(file.name)
-
-    logger.info(f"PDF generation completed by user: {request.user}")
-
-    return response
+# def generic_pdf(request: HttpRequest) -> HttpResponse:
+#     os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+#
+#     machines = Machine.objects.all()
+#     data = []
+#
+#     for machine in machines:
+#         tools = machine.tools.all()
+#         for tool in tools:
+#             data.append(
+#                 {
+#                     "tool_number": tool.tool_nr,
+#                     "radius": tool.radius,
+#                     "total_length": tool.total_length,
+#                     "outside_holder": tool.outside_holder,
+#                     "machine": machine.name,
+#                     "holder_type_display": tool.holder.get_holder_type_display(),
+#                     "tool_type_display": tool.tool.get_tool_type_display(),
+#                 }
+#             )
+#
+#     content = render_to_string("machines/root.html", {"machines": data})
+#
+#     with NamedTemporaryFile(delete=False, suffix=".pdf") as file:
+#         HTML(string=content).write_pdf(file.name)
+#
+#         file.seek(0)
+#         pdf_content = file.read()
+#
+#     response = HttpResponse(pdf_content, content_type="application/pdf")
+#     response["Content-Disposition"] = 'inline; filename="generated.pdf"'
+#
+#     os.remove(file.name)
+#
+#     logger.info(f"PDF generation completed by user: {request.user}")
+#
+#     return response

@@ -1,12 +1,11 @@
 from django.urls import path
 
-from .views import (
+from .views import (  # generic_pdf,
     MachineCreateView,
     MachineDeleteView,
     MachineDetailView,
     MachineUpdateView,
     generate_csv,
-    generic_pdf,
     home,
 )
 
@@ -17,5 +16,5 @@ urlpatterns = [
     path("machine/<int:pk>/update/", MachineUpdateView.as_view(), name="machine-update"),
     path("machine/<int:pk>/delete/", MachineDeleteView.as_view(), name="machine-delete"),
     path("tools/generate-csv/", generate_csv, name="generate-csv"),
-    path("tools/generate-pdf/", generic_pdf, name="generate-pdf"),
+    # path("tools/generate-pdf/", generic_pdf, name="generate-pdf"),
 ]
