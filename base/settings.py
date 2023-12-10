@@ -164,9 +164,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static/"),
+# ]
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
 STATICFILES_STORAGE = "storages.backends.s3.S3Storage"
