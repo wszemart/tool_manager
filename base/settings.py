@@ -32,7 +32,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["toolmanager-env.eba-x9pzmsw3.eu-west-2.elasticbeanstalk.com", "127.0.0.1", "18.135.66.122"]
+ALLOWED_HOSTS = ["tool-env.eba-xdjkep8c.eu-west-2.elasticbeanstalk.com", "127.0.0.1", "18.135.66.122"]
 
 # Application definition
 
