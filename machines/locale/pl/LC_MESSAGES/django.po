@@ -110,7 +110,7 @@ msgstr "Zalogowano jako"
 
 #: .\templates\machines\machine.html:13
 msgid "Tools table"
-msgstr "Tabela oprawek"
+msgstr "Tabela narzędzi"
 
 #: .\templates\machines\machine_detail.html:9
 msgid "Edit"
@@ -126,12 +126,12 @@ msgstr "Opis"
 
 #: .\templates\machines\machine_detail.html:39 .\templates\machines\root.html:9
 msgid "Tool table"
-msgstr "Tabela oprawek"
+msgstr "Tabela narzędzi"
 
 #: .\templates\machines\machine_detail.html:45
 #: .\templates\machines\root.html:15
 msgid "Tool nr"
-msgstr "Narzędzia"
+msgstr "Nr narzędzia"
 
 #: .\templates\machines\machine_detail.html:46
 #: .\templates\machines\root.html:16

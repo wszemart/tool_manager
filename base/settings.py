@@ -32,7 +32,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["tool-env.eba-xdjkep8c.eu-west-2.elasticbeanstalk.com", "127.0.0.1:8000"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -92,23 +92,23 @@ WSGI_APPLICATION = "base.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db_podzial_apek.sqlite3",
-    }
-}
-
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         'NAME': env("DB_NAME"),
-#         'USER': env("DB_USER"),
-#         'PASSWORD': env("DB_PASSWORD"),
-#         'HOST': 'db',
-#         'PORT': env("DB_PORT"),
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db_podzial_apek.sqlite3",
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -160,7 +160,8 @@ TIME_ZONE = "UTC"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = "static"
 
 STATIC_URL = "/static/"
 
@@ -170,6 +171,8 @@ STATIC_URL = "/static/"
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# settings_aws.py
 
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
@@ -199,12 +202,6 @@ LOGGING = {
         },
     },
     "handlers": {
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": BASE_DIR / "warning.log",
-            "formatter": "standard",
-        },
         "console": {
             "level": "INFO",
             "class": "logging.StreamHandler",
@@ -215,47 +212,43 @@ LOGGING = {
     "loggers": {
         "django": {
             "level": "WARNING",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "django.request": {
             "level": "WARNING",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "django.db.backends": {
             "level": "WARNING",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "django.template": {
             "level": "WARNING",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "machines": {
             "level": "DEBUG",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "notifications": {
             "level": "DEBUG",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "tools_assembly": {
             "level": "DEBUG",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
         "users": {
             "level": "DEBUG",
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "propagate": True,
         },
     },
-    # 'root': {
-    #     'level': 'INFO',
-    #     'handlers': ['console', 'file'],
-    # },
 }

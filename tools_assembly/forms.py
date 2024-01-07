@@ -65,10 +65,10 @@ class ToolAssemblyForm(forms.ModelForm):
 class ToolAssemblySlim(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["tool_nr"].widget.attrs["disabled"] = "disabled"
-        self.fields["machine"].widget.attrs["disabled"] = "disabled"
-        self.fields["holder"].widget.attrs["disabled"] = "disabled"
-        self.fields["tool"].widget.attrs["disabled"] = "disabled"
+        self.fields["tool_nr"].disabled = True
+        self.fields["machine"].disabled = True
+        self.fields["holder"].disabled = True
+        self.fields["tool"].disabled = True
 
     class Meta:
         model = ToolAssembly
@@ -101,6 +101,8 @@ class ToolAssemblySlim(forms.ModelForm):
                 _("The length 'outside_holder' value must be smaller than the 'total length'."),
             )
 
+        return outside_holder
+
     def clean_radius(self):
         cleaned_data = super().clean()
         radius = cleaned_data.get("radius")
@@ -110,6 +112,8 @@ class ToolAssemblySlim(forms.ModelForm):
                 "radius",
                 _("The radius must be greater than 0 and less than 30."),
             )
+
+        return radius
 
     def clean(self):
         cleaned_data = super().clean()
