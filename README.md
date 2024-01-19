@@ -15,9 +15,11 @@
 
 "Tool Manager" is a multifunctional project optimized for the work of programmers and operators. The main purpose of the application is to control, manage, and efficiently utilize tools in the production process.
 
-The Tool Manager project is based on design patterns, which help maintain the application's health and facilitate the development of its functionalities. Application testing is carried out using the built-in Django module: TestCase. The use of the Factory Boy library ensures that test data is randomly generated, allowing a thorough check of the application's correctness. Code formatting rules are strictly adhered to with the help of the isort and PEP8 Black libraries.
+The Tool Manager project is based on design patterns, which help maintain the application's health and facilitate the development of its functionalities. Application testing is carried out using the built-in Django module: TestCase. The use of the Factory Boy library ensures that test data is randomly generated, allowing a thorough check of the application's correctness. Code formatting rules are strictly adhered to with the help of the isort, PEP8 Black and pre-commit libraries.
 
 The database is designed in Postgres, which simplifies complex operations related to data processing and storage.
+
+Poetry has been added to the project for integration, serving as a robust tool for managing dependencies and packaging in Python. With Poetry, you can effortlessly declare the libraries your project relies on, and it takes care of installing or updating them seamlessly.
 
 The user-friendly and intuitive Tool Manager user interface is created using the Bootstrap template. It enables convenient management of the machinery park, tool components (holders, tools), and the tools themselves.
 </details>
@@ -28,11 +30,11 @@ The user-friendly and intuitive Tool Manager user interface is created using the
 
 The Tool Manager project is built with the following technologies & tools:
 - Python 3.11
-- Django 4.23
+- Django 4.23 
+- Poetry 1.7.1
 - PostgreSQL 15
 - Docker / Docker-Compose
 - HTML/CSS/Bootstrap
-
 
 </details>
 
