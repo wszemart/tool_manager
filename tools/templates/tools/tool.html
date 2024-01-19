@@ -8,7 +8,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-lg">
-            {% if perms.tools_assembly.add_tool %}
+            {% if perms.tools.add_tool %}
             <div class="text-end mb-3">
                 <a class="btn btn-secondary btn-md mt-5 mb-0" href="{% url 'tool-create' %}">{% blocktrans %} Add new tool {% endblocktrans %}</a>
             </div>
