@@ -24,13 +24,13 @@ Poetry has been added to the project for integration, serving as a robust tool f
 The user-friendly and intuitive Tool Manager user interface is created using the Bootstrap template. It enables convenient management of the machinery park, tool components (holders, tools), and the tools themselves.
 </details>
 
-## Technologies
+## Technologies & Tools
 <details>
 <summary>Click to expand</summary>
 
 The Tool Manager project is built with the following technologies & tools:
 - Python 3.11
-- Django 4.23 
+- Django 4.23
 - Poetry 1.7.1
 - PostgreSQL 15
 - Docker / Docker-Compose

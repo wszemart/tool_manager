@@ -17,7 +17,7 @@ services:
     restart: always
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: poetry run python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code/
     ports:

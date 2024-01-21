@@ -173,4 +173,4 @@ cython_debug/
 /static/
 /tool_manager/*.env
 .gitignore
-/tool_manager/data/*
+/data/*
