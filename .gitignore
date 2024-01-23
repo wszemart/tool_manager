@@ -174,3 +174,4 @@ cython_debug/
 /tool_manager/*.env
 .gitignore
 /data/*
+/tool_manager/*.lock
