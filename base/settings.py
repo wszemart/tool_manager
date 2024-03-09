@@ -14,9 +14,10 @@ import os
 from pathlib import Path
 
 import environ
+from django.core.management.utils import get_random_secret_key
 from django.utils.translation import gettext_lazy as _
 
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env(DEBUG=(bool, False), SECRET_KEY=(bool, get_random_secret_key()))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

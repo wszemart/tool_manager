@@ -16,7 +16,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-django = ">=4.2.3"
+django = "4.2.3"
 boto3 = "1.33.11"
 pillow = "10.0.0"
 crispy-bootstrap4 = "2022.1"
