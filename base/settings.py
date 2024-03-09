@@ -17,8 +17,7 @@ import environ
 from django.core.management.utils import get_random_secret_key
 from django.utils.translation import gettext_lazy as _
 
-env = environ.Env(DEBUG=(bool, False), SECRET_KEY=(bool, get_random_secret_key()))
-
+env = environ.Env(DEBUG=(bool, False), SECRET_KEY=(bool, get_random_secret_key()), ENVIRONMENT=(str, "dev"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
