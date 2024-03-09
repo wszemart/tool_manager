@@ -44,7 +44,7 @@ jobs:
       env:
         DB_NAME: ${{ vars.POSTGRES_DB }}
         DB_USER: ${{ vars.POSTGRES_USER }}
-        DB_PASSWORD: ${{ secret.POSTGRES_PASSWORD }}
+        DB_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         DB_HOST: localhost
         DB_PORT: 5432
     
