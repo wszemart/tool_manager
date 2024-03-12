@@ -14,8 +14,8 @@ class TestNotificationView(TestCase):
         self.machine = MachineFactory()
         self.holder = HolderFactory(author=self.user)
         self.tool = ToolFactory(author=self.user)
-        self.toolassembly = ToolAssemblyFactory(author=self.user)
-        self.user_comment = UserCommentFactory(author=self.user, toolassembly=self.toolassembly)
+        self.tool_assembly = ToolAssemblyFactory(author=self.user)
+        self.user_comment = UserCommentFactory(author=self.user, tool_assembly=self.tool_assembly)
         self.notification = NotificationFactory(user=self.user, user_comment=self.user_comment)
         self.user_notification = UserNotificationFactory(user=self.user, notification=self.notification)
 

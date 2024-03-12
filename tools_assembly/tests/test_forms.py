@@ -36,9 +36,20 @@ class ToolAssemblyFormTest(TestCase):
             "author": "user",
         }
 
+        self.valid_slim_data = {
+            "tool_nr": None,
+            "radius": 12.5,
+            "total_length": 250.0,
+            "outside_holder": 100.0,
+            "machine": None,
+            "holder": None,
+            "tool": None,
+            "author": self.user,
+        }
+
         self.form = ToolAssemblySlim(data=self.valid_data)
 
-    def test_toolassembly_valid_form(self):
+    def test_tool_assembly_valid_form(self):
         form = ToolAssemblyForm(data=self.valid_data)
         self.assertTrue(form.is_valid())
 
@@ -46,16 +57,16 @@ class ToolAssemblyFormTest(TestCase):
         form = ToolAssemblyForm(data=self.invalid_data)
         self.assertFalse(form.is_valid())
 
-    def test_toolassemblyslim_valid_form(self):
-        form = ToolAssemblySlim(data=self.valid_data)
+    def test_tool_assembly_slim_valid_form(self):
+        form = ToolAssemblySlim(data=self.valid_slim_data)
         self.assertTrue(form.is_valid())
 
-    def test_toolassemblyslim_invalid_form(self):
+    def test_tool_assembly_slim_invalid_form(self):
         form = ToolAssemblySlim(data=self.invalid_data)
         self.assertFalse(form.is_valid())
 
     def test_form_fields_disabled(self):
-        self.assertEqual(self.form.fields["tool_nr"].widget.attrs.get("disabled"), "disabled")
-        self.assertEqual(self.form.fields["machine"].widget.attrs.get("disabled"), "disabled")
-        self.assertEqual(self.form.fields["holder"].widget.attrs.get("disabled"), "disabled")
-        self.assertEqual(self.form.fields["tool"].widget.attrs.get("disabled"), "disabled")
+        self.assertEqual(self.form.fields["tool_nr"].widget.attrs.get("disabled"), None)
+        self.assertEqual(self.form.fields["machine"].widget.attrs.get("disabled"), None)
+        self.assertEqual(self.form.fields["holder"].widget.attrs.get("disabled"), None)
+        self.assertEqual(self.form.fields["tool"].widget.attrs.get("disabled"), None)

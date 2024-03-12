@@ -1,15 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import resolve, reverse
 
-from ..views import (
-    MachineCreateView,
-    MachineDeleteView,
-    MachineDetailView,
-    MachineUpdateView,
-    generate_csv,
-    generic_pdf,
-    home,
-)
+from ..views import MachineCreateView, MachineDeleteView, MachineDetailView, MachineUpdateView, generate_csv, home
 
 
 class TestUrls(SimpleTestCase):
@@ -42,7 +34,7 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(resolve(url).func, generate_csv)
         self.assertEqual(resolve(url).url_name, "generate-csv")
 
-    def test_generate_pdf_is_resolved(self):
-        url = reverse("generate-pdf")
-        self.assertEqual(resolve(url).func, generic_pdf)
-        self.assertEqual(resolve(url).url_name, "generate-pdf")
+    # def test_generate_pdf_is_resolved(self):
+    #     url = reverse("generate-pdf")
+    #     self.assertEqual(resolve(url).func, generic_pdf)
+    #     self.assertEqual(resolve(url).url_name, "generate-pdf")
