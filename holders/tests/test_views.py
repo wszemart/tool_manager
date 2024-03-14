@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import Client, TestCase, tag
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from holders.factories import HolderFactory
@@ -9,7 +9,6 @@ from users.factories import UserFactory
 from ..models import Holder
 
 
-@tag("x")
 class TestHolderViews(TestCase):
     def setUp(self):
         self.client = Client()

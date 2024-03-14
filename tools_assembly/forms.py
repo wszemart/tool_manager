@@ -69,6 +69,10 @@ class ToolAssemblySlim(forms.ModelForm):
         self.fields["machine"].disabled = True
         self.fields["holder"].disabled = True
         self.fields["tool"].disabled = True
+        self.fields["tool_nr"].required = False
+        self.fields["machine"].required = False
+        self.fields["holder"].required = False
+        self.fields["tool"].required = False
 
     class Meta:
         model = ToolAssembly
