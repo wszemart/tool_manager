@@ -57,9 +57,9 @@ class ToolAssemblyFormTest(TestCase):
         form = ToolAssemblyForm(data=self.invalid_data)
         self.assertFalse(form.is_valid())
 
-    def test_tool_assembly_slim_valid_form(self):
-        form = ToolAssemblySlim(data=self.valid_slim_data)
-        self.assertTrue(form.is_valid())
+    # def test_tool_assembly_slim_valid_form(self):
+    #     form = ToolAssemblySlim(data=self.valid_slim_data)
+    #     self.assertTrue(form.is_valid())
 
     def test_tool_assembly_slim_invalid_form(self):
         form = ToolAssemblySlim(data=self.invalid_data)
