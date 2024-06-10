@@ -135,3 +135,9 @@ Logged-in users in the 'Programmer' group can add, edit, and delete machines fro
 
 ![comment](https://github.com/wszemart/tool_manager/assets/95930936/ebdcf05b-b30d-487b-b95b-6f5cf53aec87)
 </details>
+
+### Infrastructure model
+![Infrastructure main model](.infragenie/infrastructure_main_model.svg)
+- [web component model](.infragenie/web_component_model.svg)
+
+---
